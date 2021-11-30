@@ -1,0 +1,46 @@
+Lista de comprensiones
+
+¡Aprendamos sobre las listas por comprensión! Te dan tres enteros y  que representa las dimensiones de un cuboide junto con un número entero . Imprima una lista de todas las posibles coordenadas dadas por en una cuadrícula 3D donde la suma de  no es igual a . Aquí,. Utilice listas de comprensión en lugar de bucles múltiples, como ejercicio de aprendizaje.
+
+Ejemplo
+
+
+
+
+Todas las permutaciones de  están:
+.
+
+Imprime una matriz de los elementos que no suman .
+
+
+Formato de entrada
+
+Cuatro enteros  y , cada uno en una línea separada.
+
+Restricciones
+
+Imprima la lista en orden lexicográfico creciente.
+
+Entrada de muestra 0
+
+1 
+1 
+1 
+2
+Salida de muestra 0
+
+[[0, 0, 0], [0, 0, 1], [0, 1, 0], [1, 0, 0], [1, 1, 1]]
+Explicación 0
+
+Cada variable  y  tendrá valores de  o . Todas las permutaciones de listas en el formulario.
+Elimine todas las matrices que sumen dejar solo las permutaciones válidas.
+
+Entrada de muestra 1
+
+2 
+2 
+2 
+2
+Salida de muestra 1
+
+[[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 2], [0, 2, 1], [0, 2, 2], [ 1, 0, 0], [1, 0, 2], [1, 1, 1], [1, 1, 2], [1, 2, 0], [1, 2, 1], [1, 2, 2], [2, 0, 1], [2, 0, 2], [2, 1, 0], [2, 1, 1], [2, 1, 2], [2, 2, 0], [2, 2, 1], [2, 2, 2]]

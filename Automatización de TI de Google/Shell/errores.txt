@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/media/windows/Users/Agustín/Cursos/Python/Automatización de TI de Google/Shell/01-secuencia_estandar.py", line 5, in <module>
+    print("Ahora generaremos un error en STDERR: " + datos + 1)
+TypeError: can only concatenate str (not "int") to str

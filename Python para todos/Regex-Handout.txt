@@ -1,0 +1,19 @@
+Guía rápida de expresiones regulares de Python
+
+^        Coincide con el comienzo de una línea
+$        Coincide con el final de la línea
+.        Coincide con cualquier caracter
+\s       Coincide con espacios en blanco
+\S       Coincide con cualquier carácter que no sea un espacio en blanco
+*        Repite un carácter cero o más veces
+*?       Repite un carácter cero o más veces 
+         (no codicioso)
++        Repite un caracter una o más veces
++?       Repite un caracter una o más veces 
+         (no codicioso)
+[aeiou]  Coincide con un solo carácter en el conjunto de la lista
+[^XYZ]   Coincide con un solo carácter que no está en el conjunto de la lista.
+[a-z0-9] El conjunto de caracteres puede incluir un rango
+(        Indica dónde debe comenzar la extracción de cadenas
+)        Indica dónde va a terminar la extracción de cadenas
+

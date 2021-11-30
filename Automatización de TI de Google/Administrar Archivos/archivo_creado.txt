@@ -1,0 +1,1 @@
+El nombre original del archivo era "archivo_para_renombrar.txt"
