@@ -1,0 +1,10 @@
+En Python puedes almacenar valores en variables.
+En Python puedes mostrar texto en la pantalla.
+En Python puedes hacer cálculos matemáticos.
+En Python puedes guardar una lista de valores.
+En Python puedes iterar sobra la lista de valores.
+En Python puedes ejecutar instrucciones condicionales.
+En Python puedes permitir entradas del usuario.
+En Python puedes usar funciones para mejorar tu código.
+En Python puedes crear objetos através de clases.
+En Python puedes leer archivos de texto.

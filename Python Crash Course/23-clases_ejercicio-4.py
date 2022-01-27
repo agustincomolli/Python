@@ -47,7 +47,7 @@ from collections import OrderedDict
 glosario = OrderedDict()
 
 glosario["input"] = "La función input() permite introducir datos " + \
-    "de distintos tipos desde un teclado)."
+    "de distintos tipos desde un teclado."
 glosario["if"] = "Se utiliza para ejecutar un bloque de código si, " + \
     "y solo si, se cumple una determinada condición."
 glosario["for"] = "Se utiliza para recorrer los elementos de un " + \
@@ -70,3 +70,33 @@ glosario["int"] = "Tipo de dato que se utiliza para representar " + \
 print("Diccionario de Python\n" + "*" * 21)
 for clave, valor in glosario.items():
     print(f"{clave}: \n  - {valor}")
+
+print("\nEjercicio 9-14\n" + "*" * 14)
+
+from random import randint
+
+class Dado():
+    """Modela un dado."""
+
+    def __init__(self, caras) -> None:
+        """Inicializar atributos."""
+        self.caras = caras
+
+
+    def tirar_dado(self):
+        return randint(1, self.caras)
+
+
+mi_dado = Dado(6)
+resultado = ""
+for i in range(10):
+    resultado += str(mi_dado.tirar_dado()) + " "
+
+print(resultado)
+
+mi_dado = Dado(10)
+resultado = ""
+for i in range(20):
+    resultado += str(mi_dado.tirar_dado()) + " "
+
+print(resultado)
