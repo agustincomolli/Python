@@ -18,6 +18,7 @@
 # get_new_username() para obtener el nombre de usuario correcto.
 
 import json
+from tkinter.tix import Tree
 
 # print("Ejercicio 10-11\n" + "*" * 15)
 
@@ -69,3 +70,56 @@ if numero_favorito:
     print(f"Sé su número favorito, es el {numero_favorito}.")
 else:
     obtener_nuevo_numero()
+
+
+print("Ejercicio 10-13\n" + "*" * 15)
+# Cargar el nombre de usuario si fue guardado previamente.
+# En caso contrario preguntar el nombre de usuario y guardarlo.
+def obtener_usuario_guardado():
+    """Obtener el nombre de usuario si está disponible."""
+    nombre_archivo = "26-usuario.json"
+    try:
+        with open(nombre_archivo,"r", encoding="utf8") as archivo:
+            usuario = json.load(archivo)
+    except FileNotFoundError:
+        return None
+    else:
+        return usuario
+
+
+def obtener_nuevo_usuario():
+    """Pregunta por un nuevo usuario."""
+    nombre_archivo = "26-usuario.json"
+    nombre_usuario = input("Ingrese el nombre de usuario: ")
+    with open(nombre_archivo, "w", encoding="utf8") as archivo:
+        json.dump(nombre_usuario, archivo)
+    return nombre_usuario
+
+
+def chequear_usuario_actual(usuario):
+    """Pregunta si el usuario actual es el último usuario que utilizó el 
+    sistema."""
+    while True:
+        respuesta = input(f"¿'{usuario}', este es su " + \
+            "usuario? [s|n]: ").lower()
+        if respuesta == "s":
+            return True
+        elif respuesta == "n":
+            return False
+
+
+def saludar_usuario():
+    """Saludar al usuario por su nombre."""
+    nombre_usuario = obtener_usuario_guardado()
+    if nombre_usuario:
+        if chequear_usuario_actual(nombre_usuario):
+            print(f"¡Bienvenido {nombre_usuario}!")
+        else:
+            nombre_usuario = obtener_nuevo_usuario()
+            print(f"¡Te recordaré cuando vuelvas {nombre_usuario}!")
+    else:
+        nombre_usuario = obtener_nuevo_usuario()
+        print(f"¡Te recordaré cuando vuelvas {nombre_usuario}!")
+
+
+saludar_usuario()
