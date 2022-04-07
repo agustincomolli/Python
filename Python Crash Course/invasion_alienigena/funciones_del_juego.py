@@ -1,11 +1,13 @@
-from distutils.command import config
 import sys
 import pygame
 import time
 
 from balas import Bala
 from alien import Alien
+from boton import Boton
 from time import sleep
+
+musica = pygame.mixer.music
 
 def empezar_juego(config_juego, estadisticas, barra_marcador, pantalla, 
     nave, aliens, balas):
@@ -22,8 +24,9 @@ def empezar_juego(config_juego, estadisticas, barra_marcador, pantalla,
     balas.empty()
     # Crear una nueva flota de aliens y centrar la nave.
     crear_flota_alien(config_juego, pantalla, nave, aliens)
-    nave.imagen = pygame.image.load("imagenes/nave.png")
     nave.centrar_nave()
+    musica.load("sonidos/musica.ogg")
+    musica.play(-1)
 
 
 def obtener_aliens_por_fila(config_juego, alien_ancho):
@@ -86,6 +89,7 @@ def disparar_balas(config_juego, pantalla, nave, balas):
     if len(balas) < config_juego.balas_permitidas:
         nueva_bala = Bala(config_juego, pantalla, nave)
         balas.add(nueva_bala)
+        nueva_bala.sonido.play()
 
 
 def chequear_eventos_tecla_presionada(evento, config_juego, estadisticas, 
@@ -177,21 +181,29 @@ def chequear_impacto_balas(config_juego, pantalla, estadisticas,
     # Compruebe si hay balas que hayan alcanzado a los extraterrestres.
     # Si es así, deshazte de la bala y del alienígena.
     colisiones = pygame.sprite.groupcollide(balas, aliens, True, True)
+    explosion_alien = pygame.mixer.Sound("sonidos/explosion_alien.wav")
 
     # Calcular los puntos por los aliens derribados.
     if colisiones:
         for aliens in colisiones.values():
+            explosion_alien.play()
             estadisticas.puntaje += config_juego.puntos_alien
         barra_marcador.preparar_marcador()
 
     if len(aliens) == 0:
-        # Destruir las balas existentes y crear una nueva flota.
-        balas.empty()
-        config_juego.aumentar_velocidad()
-        crear_flota_alien(config_juego, pantalla, nave, aliens)
-        # Incrementar el nivel.
-        estadisticas.nivel += 1
-        barra_marcador.preparar_nivel()
+        empezar_nuevo_nivel(config_juego, pantalla, estadisticas, 
+            barra_marcador, nave, aliens, balas)
+
+def empezar_nuevo_nivel(config_juego, pantalla, estadisticas, barra_marcador, 
+        nave, aliens, balas):
+    """Limpia la pantalla y sube de nivel."""
+    # Destruir las balas existentes y crear una nueva flota.
+    balas.empty()
+    config_juego.aumentar_velocidad()
+    crear_flota_alien(config_juego, pantalla, nave, aliens)
+    # Incrementar el nivel.
+    estadisticas.nivel += 1
+    barra_marcador.preparar_nivel()
 
 
 def actualizar_balas(config_juego, pantalla, estadisticas, barra_marcador, 
@@ -226,26 +238,47 @@ def chequear_bordes_flota(config_juego, aliens):
 def destruir_nave(config_juego, estadisticas, pantalla, nave, aliens, balas):
     """Responder cuando la nave es alcanzada por un alien."""
     # Mostrar explosion.
-    nave.imagen = pygame.image.load("imagenes/explosion.png")
+    nave.image = pygame.image.load("imagenes/explosion.png")
     nave.dibujame()
     pygame.display.flip()
+    explosion_nave = pygame.mixer.Sound("sonidos/explosion_nave.wav")
+    explosion_nave.play()
     sleep(2)
+    # Limpiar la lista de aliens y balas.
+    aliens.empty()
+    balas.empty()
+    # Crear una nueva flota y centrar la nave.
+    crear_flota_alien(config_juego, pantalla, nave, aliens)
+    nave.image = pygame.image.load("imagenes/nave.png")
+    nave.centrar_nave()
     if estadisticas.naves_restantes > 0:
         # Reducir el número de las naves que quedan.
         estadisticas.naves_restantes -= 1
-        # Limpiar la lista de aliens y balas.
-        aliens.empty()
-        balas.empty()
-        # Crear una nueva flota y centrar la nave.
-        crear_flota_alien(config_juego, pantalla, nave, aliens)
-        nave.imagen = pygame.image.load("imagenes/nave.png")
-        nave.centrar_nave()
-        # Pausar el juego.
-        sleep(0.5)
     else:
         # Hacer visible el cursor del mouse.
         pygame.mouse.set_visible(True)
         estadisticas.estado_juego = False
+        musica.stop()
+        musica.load("sonidos/juego_terminado.ogg")
+        musica.play()
+        dibujar_juego_terminado(config_juego, pantalla)
+
+def dibujar_juego_terminado(config_juego, pantalla):
+    """Dibuja un cartel para finalizar el juego."""
+    cartel = Boton(config_juego, pantalla, "¡Juego terminado!")
+    cartel.color_boton = (140, 3, 3) # Rojo
+    cartel.color_texto = (255, 247, 3) # Amarillo
+    cartel.ancho = 600
+    cartel.alto = 200
+    # Establecer las dimensiones del cartel y centrarlo.
+    cartel.rect = pygame.Rect(0, 0, cartel.ancho, cartel.alto)
+    cartel.rect.center = cartel.pantalla_rect.center
+    cartel.preparar_mensaje("¡Juego terminado!")
+    cartel.dibujar_boton()
+    pygame.display.flip()
+    # Pausar el juego 4 segundos
+    sleep(5)
+
 
 def chequear_alien_abajo(config_juego, estadisticas, pantalla, nave, aliens, balas):
     """Chequear si un alien ha llegado al fondo de la pantalla."""

@@ -22,6 +22,9 @@ class Bala(Sprite):
         self.color = config_juego.color_balas
         self.factor_velocidad = config_juego.factor_velocidad_balas
 
+        # Almacenar sonido de bala.
+        self.sonido = pygame.mixer.Sound("sonidos/laser_nave.wav")
+
     
     # Tengo que usar el nombre en inglés porque pygame.sprite.Group.update()
     # llama al método update de todas las clases que están en el grupo.

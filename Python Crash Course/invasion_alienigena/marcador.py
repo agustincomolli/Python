@@ -1,6 +1,8 @@
-from tkinter import font
 import pygame
 import pygame.font
+
+from pygame.sprite import Group
+from nave import Nave
 
 class Marcador():
     """Una clase para mostrar información."""
