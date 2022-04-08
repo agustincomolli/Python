@@ -1,4 +1,4 @@
-import pygame
+import pygame, sys, os
 from pygame.sprite import Sprite
 
 class Bala(Sprite):
@@ -23,7 +23,7 @@ class Bala(Sprite):
         self.factor_velocidad = config_juego.factor_velocidad_balas
 
         # Almacenar sonido de bala.
-        self.sonido = pygame.mixer.Sound("sonidos/laser_nave.wav")
+        self.sonido = pygame.mixer.Sound(resource_path("sonidos/laser_nave.wav"))
 
     
     # Tengo que usar el nombre en inglés porque pygame.sprite.Group.update()
@@ -41,3 +41,14 @@ class Bala(Sprite):
         """Dibuja la bala en la pantalla."""
 
         pygame.draw.rect(self.pantalla, self.color, self.rect)
+
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)

@@ -1,4 +1,5 @@
 import sys
+import os
 import pygame
 import time
 
@@ -25,7 +26,7 @@ def empezar_juego(config_juego, estadisticas, barra_marcador, pantalla,
     # Crear una nueva flota de aliens y centrar la nave.
     crear_flota_alien(config_juego, pantalla, nave, aliens)
     nave.centrar_nave()
-    musica.load("sonidos/musica.ogg")
+    musica.load(resource_path("sonidos/musica.ogg"))
     musica.play(-1)
 
 
@@ -155,7 +156,7 @@ def actualizar_pantalla(config_juego, pantalla, estadisticas, barra_marcador,
      nave, aliens, balas, boton_jugar, boton_salir):
     """Actualiza las imágenes en la pantalla y cambia a la nueva pantalla."""
     # Vuelva a dibujar la pantalla durante cada pasada por el bucle.
-    fondo_pantalla = pygame.image.load("imagenes/fondo.jpg")
+    fondo_pantalla = pygame.image.load(resource_path("imagenes/fondo.jpg"))
     pantalla.blit(fondo_pantalla, (0, 0))
     # Redibujar todas las balas que están entre la nave y los enemigos.
     for bala in balas.sprites():
@@ -181,7 +182,8 @@ def chequear_impacto_balas(config_juego, pantalla, estadisticas,
     # Compruebe si hay balas que hayan alcanzado a los extraterrestres.
     # Si es así, deshazte de la bala y del alienígena.
     colisiones = pygame.sprite.groupcollide(balas, aliens, True, True)
-    explosion_alien = pygame.mixer.Sound("sonidos/explosion_alien.wav")
+    explosion_alien = pygame.mixer.Sound(
+            resource_path("sonidos/explosion_alien.wav"))
 
     # Calcular los puntos por los aliens derribados.
     if colisiones:
@@ -237,31 +239,38 @@ def chequear_bordes_flota(config_juego, aliens):
 
 def destruir_nave(config_juego, estadisticas, pantalla, nave, aliens, balas):
     """Responder cuando la nave es alcanzada por un alien."""
-    # Mostrar explosion.
-    nave.image = pygame.image.load("imagenes/explosion.png")
-    nave.dibujame()
-    pygame.display.flip()
-    explosion_nave = pygame.mixer.Sound("sonidos/explosion_nave.wav")
-    explosion_nave.play()
-    sleep(2)
+    nave.explotar()
+    reiniciar_nivel(config_juego, pantalla, nave, aliens, balas)
+    if estadisticas.naves_restantes > 0:
+        # Reducir el número de las naves que quedan.
+        estadisticas.naves_restantes -= 1
+    else:
+        terminar_juego(config_juego, estadisticas, pantalla)
+
+
+def terminar_juego(config_juego, estadisticas, pantalla):
+    """Mostrar un cartel y sonido de fin de juego y guardar el record."""
+    with open("record.txt", "w") as archivo:
+        archivo.write(str(estadisticas.record))
+    # Hacer visible el cursor del mouse.
+    pygame.mouse.set_visible(True)
+    estadisticas.estado_juego = False
+    musica.stop()
+    musica.load(resource_path("sonidos/juego_terminado.ogg"))
+    musica.play()
+    dibujar_juego_terminado(config_juego, pantalla)
+
+
+def reiniciar_nivel(config_juego, pantalla, nave, aliens, balas):
+    """Reiniciar el mismo nivelen que quedó el jugador."""
     # Limpiar la lista de aliens y balas.
     aliens.empty()
     balas.empty()
     # Crear una nueva flota y centrar la nave.
     crear_flota_alien(config_juego, pantalla, nave, aliens)
-    nave.image = pygame.image.load("imagenes/nave.png")
+    nave.image = pygame.image.load(resource_path("imagenes/nave.png"))
     nave.centrar_nave()
-    if estadisticas.naves_restantes > 0:
-        # Reducir el número de las naves que quedan.
-        estadisticas.naves_restantes -= 1
-    else:
-        # Hacer visible el cursor del mouse.
-        pygame.mouse.set_visible(True)
-        estadisticas.estado_juego = False
-        musica.stop()
-        musica.load("sonidos/juego_terminado.ogg")
-        musica.play()
-        dibujar_juego_terminado(config_juego, pantalla)
+
 
 def dibujar_juego_terminado(config_juego, pantalla):
     """Dibuja un cartel para finalizar el juego."""
@@ -307,3 +316,13 @@ def actualizar_aliens(config_juego, estadisticas, pantalla, nave, aliens, balas)
     chequear_alien_abajo(config_juego, estadisticas, pantalla, nave, 
         aliens, balas)
 
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)

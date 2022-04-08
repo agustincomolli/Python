@@ -7,7 +7,19 @@ class Estadistica_Juego():
         self.config_juego = config_juego
         # Empezar el juego en estado inactivo.
         self.estado_juego = False
+        # El record nunca se debe reiniciar.
+        self.record = self.leer_record()
         self.reiniciar_estadisticas()
+    
+
+    def leer_record(self):
+        """Lee el record guardado en un archivo."""
+        try:
+            with open("record.txt", "r") as archivo:
+                contenido = archivo.readline()
+            return int(contenido)
+        except:
+            return 0
 
 
     def reiniciar_estadisticas(self):

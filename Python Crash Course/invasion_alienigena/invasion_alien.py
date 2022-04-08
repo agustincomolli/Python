@@ -1,4 +1,5 @@
 import pygame
+
 from pygame.sprite import Group
 
 from configuraciones import Configuracion
@@ -7,6 +8,8 @@ from alien import Alien
 from estadisticas import Estadistica_Juego
 from marcador import Marcador
 from boton import Boton
+from funciones_del_juego import resource_path
+
 import funciones_del_juego
 
 def ejecutar_juego():
@@ -19,7 +22,7 @@ def ejecutar_juego():
         (config_juego.pantalla_ancho, config_juego.pantalla_alto)
         )
     pygame.display.set_caption("Invasión Alienígena")
-    icono = pygame.image.load("imagenes/nave.png")
+    icono = pygame.image.load(resource_path("imagenes/nave.png"))
     pygame.display.set_icon(icono)
 
     # Crear el botón de "Jugar"
