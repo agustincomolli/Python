@@ -8,3 +8,11 @@ for archivo in lista_archivos:
 # Ver el directorio de trabajo actual.
 print("\n2 - Directorio de trabajo actual:")
 print(Path.cwd())
+
+# Concatenar dos objetos Path.
+print("\n3 - Concatenar dos objetos Path:")
+print(Path("C:/Users/Usuario/Documents") / Path( "archivo1.docx"))
+
+# Mostrar el directorio de inicio.
+print("\n4 - Directorio de inicio:")
+print(Path.home())
