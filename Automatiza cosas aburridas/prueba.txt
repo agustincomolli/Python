@@ -1,3 +1,2 @@
-¡Hola, mundo!
-
-Esto es una prueba.
+¡Hola mundo!
+-> Esto es una línea nueva.
