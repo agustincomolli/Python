@@ -12,3 +12,10 @@ configuraciones.close()
 configuraciones = shelve.open(ruta_archivo)
 print(configuraciones["colores"])
 configuraciones.close()
+
+# Mostrar claves y valores del archivo configuraciones.
+configuraciones = shelve.open(ruta_archivo)
+claves = list(configuraciones.keys())
+valores = list(configuraciones.values())
+print(f"\nClaves: {claves}.")
+print(f"Valores: {valores}")

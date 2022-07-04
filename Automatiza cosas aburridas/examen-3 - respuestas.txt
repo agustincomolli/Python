@@ -1,0 +1,23 @@
+1 - [ B ] Río Gallegos
+2 - [ B ] La Rioja
+3 - [ B ] Mendoza
+4 - [ B ] La Plata
+5 - [ C ] Rawson
+6 - [ D ] Río Gallegos
+7 - [ C ] La Plata
+8 - [ D ] Santiago del Estero
+9 - [ D ] San Salvador de Jujuy
+10 - [ D ] Corrientes
+11 - [ A ] Córdoba
+12 - [ C ] Santa Rosa
+13 - [ C ] Mendoza
+14 - [ C ] Río Gallegos
+15 - [ A ] Salta
+16 - [ A ] Neuquén
+17 - [ B ] Santa Rosa
+18 - [ B ] Neuquén
+19 - [ C ] Rawson
+20 - [ D ] Santa Fe
+21 - [ C ] Posadas
+22 - [ D ] La Rioja
+23 - [ D ] Ushuaia

@@ -1,0 +1,23 @@
+1 - [ B ] Mendoza
+2 - [ A ] San Fernando del Valle de Catamarca
+3 - [ C ] San Luis
+4 - [ D ] Neuquén
+5 - [ A ] Viedma
+6 - [ C ] Resistencia
+7 - [ D ] Viedma
+8 - [ A ] Salta
+9 - [ C ] Santa Fe
+10 - [ C ] Ushuaia
+11 - [ A ] Ushuaia
+12 - [ C ] Córdoba
+13 - [ B ] San Salvador de Jujuy
+14 - [ B ] Mendoza
+15 - [ C ] Resistencia
+16 - [ B ] San Miguel de Tucumán
+17 - [ A ] La Plata
+18 - [ C ] Posadas
+19 - [ D ] Resistencia
+20 - [ B ] Ushuaia
+21 - [ B ] La Plata
+22 - [ A ] San Fernando del Valle de Catamarca
+23 - [ D ] Rawson

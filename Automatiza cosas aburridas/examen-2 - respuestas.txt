@@ -1,0 +1,23 @@
+1 - [ B ] Formosa
+2 - [ A ] Ushuaia
+3 - [ A ] Mendoza
+4 - [ C ] Ushuaia
+5 - [ D ] San Fernando del Valle de Catamarca
+6 - [ B ] Córdoba
+7 - [ A ] Santa Rosa
+8 - [ B ] San Fernando del Valle de Catamarca
+9 - [ B ] San Juan
+10 - [ B ] San Luis
+11 - [ D ] San Luis
+12 - [ D ] Ushuaia
+13 - [ C ] Neuquén
+14 - [ A ] Posadas
+15 - [ A ] San Luis
+16 - [ A ] Córdoba
+17 - [ D ] Paraná
+18 - [ D ] Formosa
+19 - [ A ] San Salvador de Jujuy
+20 - [ C ] Rawson
+21 - [ C ] Corrientes
+22 - [ D ] Viedma
+23 - [ D ] Rawson

@@ -1,0 +1,23 @@
+1 - [ A ] Viedma
+2 - [ A ] La Rioja
+3 - [ C ] San Miguel de Tucumán
+4 - [ B ] Ushuaia
+5 - [ C ] San Juan
+6 - [ A ] San Salvador de Jujuy
+7 - [ B ] Santa Rosa
+8 - [ C ] San Luis
+9 - [ A ] San Fernando del Valle de Catamarca
+10 - [ D ] Santa Rosa
+11 - [ D ] Paraná
+12 - [ C ] Rawson
+13 - [ B ] Mendoza
+14 - [ B ] Corrientes
+15 - [ B ] Córdoba
+16 - [ A ] Córdoba
+17 - [ A ] Río Gallegos
+18 - [ D ] La Plata
+19 - [ D ] Salta
+20 - [ D ] Córdoba
+21 - [ D ] Rawson
+22 - [ D ] La Rioja
+23 - [ D ] San Miguel de Tucumán

@@ -1,0 +1,146 @@
+Nombre:
+
+Fecha:
+
+Período:
+
+                     Examen sobre capitales de provincia (Examen N°: 1)
+
+1 - ¿Cuál es la capital de Córdoba?
+    A - Rawson
+    B - Viedma
+    C - Salta
+    D - Córdoba
+
+2 - ¿Cuál es la capital de Tucumán?
+    A - San Miguel de Tucumán
+    B - Mendoza
+    C - Santa Rosa
+    D - Córdoba
+
+3 - ¿Cuál es la capital de San Luis?
+    A - Corrientes
+    B - San Luis
+    C - San Fernando del Valle de Catamarca
+    D - San Miguel de Tucumán
+
+4 - ¿Cuál es la capital de Río Negro?
+    A - Rawson
+    B - Río Gallegos
+    C - San Miguel de Tucumán
+    D - Viedma
+
+5 - ¿Cuál es la capital de Entre Ríos?
+    A - La Rioja
+    B - Paraná
+    C - Ushuaia
+    D - Salta
+
+6 - ¿Cuál es la capital de La Pampa?
+    A - Santa Rosa
+    B - Salta
+    C - San Miguel de Tucumán
+    D - La Plata
+
+7 - ¿Cuál es la capital de Jujuy?
+    A - Corrientes
+    B - San Luis
+    C - San Salvador de Jujuy
+    D - Posadas
+
+8 - ¿Cuál es la capital de Misiones?
+    A - Posadas
+    B - Formosa
+    C - Ushuaia
+    D - Río Gallegos
+
+9 - ¿Cuál es la capital de San Juan?
+    A - San Fernando del Valle de Catamarca
+    B - San Salvador de Jujuy
+    C - Ushuaia
+    D - San Juan
+
+10 - ¿Cuál es la capital de Santiago del Estero?
+    A - La Rioja
+    B - La Plata
+    C - Santiago del Estero
+    D - Mendoza
+
+11 - ¿Cuál es la capital de Tierra del Fuego, Antártida e Islas del Atlántico Sur?
+    A - Santa Fe
+    B - Corrientes
+    C - Posadas
+    D - Ushuaia
+
+12 - ¿Cuál es la capital de Mendoza?
+    A - La Plata
+    B - Viedma
+    C - Mendoza
+    D - San Luis
+
+13 - ¿Cuál es la capital de Formosa?
+    A - Posadas
+    B - Paraná
+    C - Formosa
+    D - San Salvador de Jujuy
+
+14 - ¿Cuál es la capital de La Rioja?
+    A - Rawson
+    B - Posadas
+    C - La Rioja
+    D - Santiago del Estero
+
+15 - ¿Cuál es la capital de Santa Fe?
+    A - Río Gallegos
+    B - Santa Fe
+    C - San Fernando del Valle de Catamarca
+    D - Viedma
+
+16 - ¿Cuál es la capital de Neuquén?
+    A - Córdoba
+    B - Neuquén
+    C - San Miguel de Tucumán
+    D - La Rioja
+
+17 - ¿Cuál es la capital de Chubut?
+    A - La Plata
+    B - Rawson
+    C - San Juan
+    D - Ushuaia
+
+18 - ¿Cuál es la capital de Buenos Aires?
+    A - Córdoba
+    B - San Juan
+    C - San Luis
+    D - La Plata
+
+19 - ¿Cuál es la capital de Santa Cruz?
+    A - San Fernando del Valle de Catamarca
+    B - Ushuaia
+    C - Río Gallegos
+    D - Santa Fe
+
+20 - ¿Cuál es la capital de Salta?
+    A - Salta
+    B - San Salvador de Jujuy
+    C - Ushuaia
+    D - San Fernando del Valle de Catamarca
+
+21 - ¿Cuál es la capital de Catamarca?
+    A - San Juan
+    B - Rawson
+    C - San Fernando del Valle de Catamarca
+    D - Corrientes
+
+22 - ¿Cuál es la capital de Chaco?
+    A - Ushuaia
+    B - Santa Fe
+    C - Posadas
+    D - Resistencia
+
+23 - ¿Cuál es la capital de Corrientes?
+    A - La Rioja
+    B - Corrientes
+    C - San Luis
+    D - La Plata
+

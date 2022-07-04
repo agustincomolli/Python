@@ -1,0 +1,23 @@
+1 - [ D ] Córdoba
+2 - [ A ] Córdoba
+3 - [ B ] San Miguel de Tucumán
+4 - [ D ] Viedma
+5 - [ B ] Salta
+6 - [ A ] La Plata
+7 - [ C ] Posadas
+8 - [ A ] Río Gallegos
+9 - [ D ] San Juan
+10 - [ C ] Mendoza
+11 - [ D ] Ushuaia
+12 - [ C ] San Luis
+13 - [ C ] San Salvador de Jujuy
+14 - [ C ] Santiago del Estero
+15 - [ B ] Viedma
+16 - [ B ] La Rioja
+17 - [ B ] Ushuaia
+18 - [ D ] La Plata
+19 - [ C ] Santa Fe
+20 - [ A ] San Fernando del Valle de Catamarca
+21 - [ C ] Corrientes
+22 - [ D ] Resistencia
+23 - [ B ] La Plata

@@ -1,0 +1,146 @@
+Nombre:
+
+Fecha:
+
+Período:
+
+                     Examen sobre capitales de provincia (Examen N°: 4)
+
+1 - ¿Cuál es la capital de Catamarca?
+    A - San Fernando del Valle de Catamarca
+    B - Santa Fe
+    C - San Juan
+    D - Viedma
+
+2 - ¿Cuál es la capital de San Luis?
+    A - San Luis
+    B - Posadas
+    C - San Fernando del Valle de Catamarca
+    D - La Rioja
+
+3 - ¿Cuál es la capital de Mendoza?
+    A - Santa Rosa
+    B - La Plata
+    C - Mendoza
+    D - San Miguel de Tucumán
+
+4 - ¿Cuál es la capital de Chaco?
+    A - San Miguel de Tucumán
+    B - Resistencia
+    C - Paraná
+    D - Ushuaia
+
+5 - ¿Cuál es la capital de Formosa?
+    A - Santiago del Estero
+    B - Corrientes
+    C - Formosa
+    D - San Juan
+
+6 - ¿Cuál es la capital de Santa Fe?
+    A - Santa Fe
+    B - Posadas
+    C - Rawson
+    D - San Salvador de Jujuy
+
+7 - ¿Cuál es la capital de Tierra del Fuego, Antártida e Islas del Atlántico Sur?
+    A - Formosa
+    B - Ushuaia
+    C - San Miguel de Tucumán
+    D - Santa Rosa
+
+8 - ¿Cuál es la capital de Jujuy?
+    A - Resistencia
+    B - San Miguel de Tucumán
+    C - San Salvador de Jujuy
+    D - San Luis
+
+9 - ¿Cuál es la capital de Santa Cruz?
+    A - Río Gallegos
+    B - La Plata
+    C - Rawson
+    D - San Fernando del Valle de Catamarca
+
+10 - ¿Cuál es la capital de La Pampa?
+    A - San Luis
+    B - Mendoza
+    C - Paraná
+    D - Santa Rosa
+
+11 - ¿Cuál es la capital de Entre Ríos?
+    A - Formosa
+    B - San Salvador de Jujuy
+    C - Santiago del Estero
+    D - Paraná
+
+12 - ¿Cuál es la capital de Neuquén?
+    A - San Juan
+    B - Resistencia
+    C - Neuquén
+    D - Rawson
+
+13 - ¿Cuál es la capital de Misiones?
+    A - Resistencia
+    B - Posadas
+    C - Córdoba
+    D - Mendoza
+
+14 - ¿Cuál es la capital de Santiago del Estero?
+    A - Posadas
+    B - Santiago del Estero
+    C - Córdoba
+    D - Corrientes
+
+15 - ¿Cuál es la capital de Río Negro?
+    A - San Luis
+    B - Viedma
+    C - San Miguel de Tucumán
+    D - Córdoba
+
+16 - ¿Cuál es la capital de Corrientes?
+    A - Corrientes
+    B - Paraná
+    C - Resistencia
+    D - Córdoba
+
+17 - ¿Cuál es la capital de San Juan?
+    A - San Juan
+    B - Mendoza
+    C - San Fernando del Valle de Catamarca
+    D - Río Gallegos
+
+18 - ¿Cuál es la capital de Buenos Aires?
+    A - Salta
+    B - Posadas
+    C - Río Gallegos
+    D - La Plata
+
+19 - ¿Cuál es la capital de Salta?
+    A - Río Gallegos
+    B - Resistencia
+    C - Posadas
+    D - Salta
+
+20 - ¿Cuál es la capital de Córdoba?
+    A - Corrientes
+    B - Mendoza
+    C - San Luis
+    D - Córdoba
+
+21 - ¿Cuál es la capital de Chubut?
+    A - Santiago del Estero
+    B - Corrientes
+    C - Salta
+    D - Rawson
+
+22 - ¿Cuál es la capital de La Rioja?
+    A - Santa Fe
+    B - Resistencia
+    C - San Salvador de Jujuy
+    D - La Rioja
+
+23 - ¿Cuál es la capital de Tucumán?
+    A - Paraná
+    B - San Juan
+    C - San Fernando del Valle de Catamarca
+    D - San Miguel de Tucumán
+
