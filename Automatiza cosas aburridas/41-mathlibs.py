@@ -1,12 +1,18 @@
 from pathlib import Path
 
 def reemplazar_palabra(palabra: str(), reemplazo:str()):
+    """Reemplazar el código por la opción del usuario."""
+
+    # Si la palabra a reemplazar termina con un signo de puntuación...
     if palabra[-1] in [",",";",".",":","-"]:
+        # Agregar el signo al final del reemplazo.
         reemplazo += palabra[-1]
     return reemplazo
 
 
 def buscar_reemplazar(lista_palabras, reemplazar_palabra):
+    """Buscar códigos para ser reemplazados por el usuario."""
+
     for indice, palabra in enumerate(lista_palabras):
         if palabra[:9] == "[adj-mas]":
             descripcion = "adjetivo masculino"
