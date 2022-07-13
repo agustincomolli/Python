@@ -22,10 +22,11 @@ archivos_txt = list(ruta_archivos.glob("*.txt"))
 
 # Recorrer todos los archivos txt.
 for archivo in archivos_txt:
+    print(archivo.name)
     contenido = open(archivo,mode="r", encoding="UTF-8")
     # Recorrer el archivo por líneas.
     for linea in contenido:
         resultado = reg_exp.search(linea)
         if resultado != None:
-            print(resultado)
+            print(resultado.group())
     contenido.close()
