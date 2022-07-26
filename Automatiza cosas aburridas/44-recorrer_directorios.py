@@ -1,12 +1,12 @@
 import os
 from pathlib import Path
 
-directorio_inicial = Path("D:/Users/Agustín/Cursos/Python/Automatiza cosas "
+carpeta_inicial = Path("D:/Users/Agustín/Cursos/Python/Automatiza cosas "
                           + "aburridas")
 
 # os.walk(ruta) recorre todos las carpetas, subcarpetas y archivos que hay en la 
 # ruta.
-for carpeta, subcarpetas, archivos in os.walk(directorio_inicial):
+for carpeta, subcarpetas, archivos in os.walk(carpeta_inicial):
     print(f"Carpeta actual: {carpeta}")
     
     for subcarpeta in subcarpetas:
