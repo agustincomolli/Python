@@ -9,13 +9,12 @@ def decimal_to_binary(decimal_number:int) -> int:
     binary_number = ""
 
     while decimal_number > 0:
-        string_number += str(decimal_number % 2) # Guardar el resto de la div.
-        decimal_number //= 2 # Guardar la parte entera de la división.
+        # Guardar el resto de la div.
+        string_number = str(decimal_number % 2) + string_number 
+        # Guardar la parte entera de la división.
+        decimal_number //= 2 
 
-    for i in range(len(string_number), 0, -1):
-        binary_number += string_number[i - 1]
-
-    return int(binary_number)
+    return int(string_number)
 
 
 decimal_num = int(input("Número decimal: "))
