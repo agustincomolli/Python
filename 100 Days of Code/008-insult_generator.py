@@ -24,4 +24,4 @@ else:
 
 name = name.capitalize()
 
-print(f"\n\033[1,32m{name}\033[33m, {message} 🤣")
+print(f"\n\033[1,32m{name}\033[33m, {message} 🤣\033[0m")
