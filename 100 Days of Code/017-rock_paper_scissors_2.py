@@ -5,12 +5,12 @@ player_2_victories = 0
 round = 0
 winner = 0
 
-print("*** Batalla 🪨 📄✂️  Epica ***")
+print("*** Batalla 🪨 📄 ✂️ Epica ***")
 
 while True:
     round += 1
     print(f"\nRound {round}:")
-    print("\nElija una opción 🪨  = R, 📄 = P, ✂️  = T\n")
+    print("\nElija una opción 🪨 = R, 📄 = P, ✂️ = T\n")
 
     player_1 = input("Jugador 1: ").upper()
     player_2 = input("Jugador 2: ").upper()
