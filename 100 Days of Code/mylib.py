@@ -1,3 +1,6 @@
+import os
+
+
 def color_me(text, color):
     """
         DESCRIPTION: Devuelve un texto, con el código del color seleccionado.\n
@@ -68,3 +71,14 @@ def input_color(message, color_message="", color_input=""):
     print(default_color, end="")
 
     return value
+
+
+def clear_screen():
+    """
+        DESCRIPTION: Limpiar la pantalla según el sistena operativo.
+                     posix = Linux o MAC
+    """
+    if os.name == "posix":
+        os.system("clear")
+    else:
+        os.system("cls")
