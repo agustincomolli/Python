@@ -17,8 +17,9 @@ def fill_contact_card():
 
     return card
 
+clear_screen()
 
-print(color_me("Tarjeta de contacto 📇", "yellow"))
+print(color_me("Tarjeta de contacto 📇\n", "yellow"))
 
 contact_card = fill_contact_card()
 
