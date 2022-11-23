@@ -53,5 +53,20 @@ def print_bingo_card():
     print("\n")
 
 
+def check_number(number:int):
+    for row in range(len(bingo_card)):
+        for col in range(len(bingo_card[row])):
+            if number == bingo_card[row][col]:
+                bingo_card[row][col] = "X"
+                return 1
+    return 0
+
+
 bingo_card = create_bingo_card()
-print_bingo_card()
+wins = 0
+while wins < 8:
+    print_bingo_card()
+    number = int(input("\n¿Qué número salió? "))
+    wins += check_number(number)
+    print_bingo_card()
+print(color_me(f"\n{'¡BINGO! Ganaste 🤑🤑🤑':^30}", "cyan"))
