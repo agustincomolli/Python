@@ -82,3 +82,11 @@ def clear_screen():
         os.system("clear")
     else:
         os.system("cls")
+
+
+def press_enter_to_continue():
+    """
+        DESCRIPTION: Muestra un mensaje para hacer una pausa.
+
+    """
+    input("Presione ENTER para continuar...")
