@@ -89,4 +89,4 @@ def press_enter_to_continue():
         DESCRIPTION: Muestra un mensaje para hacer una pausa.
 
     """
-    input("Presione ENTER para continuar...")
+    input("Presione " + color_me("ENTER", "yellow") + " para continuar...")
