@@ -1,62 +1,63 @@
-from mylib import clear_screen, color_me, input_color
+from mylib import clear_screen, color_me, input_color, press_enter_to_continue
 import random
+import time
 
 cards = {
     "Chewbacca": {
-        "height": 2.28,
-        "intelligence": 12,
-        "dark-side": 5,
-        "jedi-powers": 10,
-        "battle-skills": 55,
-        "force-factor": 4
+        "Altura": 2.28,
+        "Inteligencia": 12,
+        "Lado oscuro": 5,
+        "Poderes Jedi": 10,
+        "Habilidades de batalla": 55,
+        "Factor Fuerza": 4
     },
     "Darth Vader": {
-        "height": 2.02,
-        "intelligence": 16,
-        "dark-side": 22,
-        "jedi-powers": 82,
-        "battle-skills": 55,
-        "force-factor": 4
+        "Altura": 2.02,
+        "Inteligencia": 16,
+        "Lado oscuro": 22,
+        "Poderes Jedi": 82,
+        "Habilidades de batalla": 55,
+        "Factor Fuerza": 4
     },
     "Emperador": {
-        "height": 1.73,
-        "intelligence": 14,
-        "dark-side": 25,
-        "jedi-powers": 95,
-        "battle-skills": 25,
-        "force-factor": 5
+        "Altura": 1.73,
+        "Inteligencia": 14,
+        "Lado oscuro": 25,
+        "Poderes Jedi": 95,
+        "Habilidades de batalla": 25,
+        "Factor Fuerza": 5
     },
     "Han Solo": {
-        "height": 2.28,
-        "intelligence": 12,
-        "dark-side": 5,
-        "jedi-powers": 10,
-        "battle-skills": 55,
-        "force-factor": 4
+        "Altura": 2.28,
+        "Inteligencia": 12,
+        "Lado oscuro": 5,
+        "Poderes Jedi": 10,
+        "Habilidades de batalla": 55,
+        "Factor Fuerza": 4
     },
     "Lando Calrissian": {
-        "height": 1.8,
-        "intelligence": 13,
-        "dark-side": 6,
-        "jedi-powers": 4,
-        "battle-skills": 50,
-        "force-factor": 3
+        "Altura": 1.8,
+        "Inteligencia": 13,
+        "Lado oscuro": 6,
+        "Poderes Jedi": 4,
+        "Habilidades de batalla": 50,
+        "Factor Fuerza": 3
     },
     "Luke Skywalker": {
-        "height": 1.72,
-        "intelligence": 15,
-        "dark-side": 4,
-        "jedi-powers": 90,
-        "battle-skills": 43,
-        "force-factor": 4
+        "Altura": 1.72,
+        "Inteligencia": 15,
+        "Lado oscuro": 4,
+        "Poderes Jedi": 90,
+        "Habilidades de batalla": 43,
+        "Factor Fuerza": 4
     },
     "Obi-Wan Kenobi": {
-        "height": 1.75,
-        "intelligence": 18,
-        "dark-side": 1,
-        "jedi-powers": 80,
-        "battle-skills": 26,
-        "force-factor": 6
+        "Altura": 1.75,
+        "Inteligencia": 18,
+        "Lado oscuro": 1,
+        "Poderes Jedi": 80,
+        "Habilidades de batalla": 26,
+        "Factor Fuerza": 6
     },
 }
 
@@ -72,16 +73,20 @@ def show_menu():
         print(f"    {index} - {key}")
         index += 1
 
-    option = input_color("\nSeleccione un personaje: 👉 ", color_input="green")
+    option = input_color("\nSeleccione un personaje: (s = salir) 👉 ",
+                         color_input="green")
 
     if not option.isnumeric():
-        return None
+        if option == "s":
+            return option
+        else:
+            return None
 
     option = int(option)
-    if option < 0 or option > len(cards)-1:
+    if option < 0 or option > len(cards):
         return None
     else:
-        return list(cards)[option - 1]
+        return list(cards)[option-1]
 
 
 def choose_stat():
@@ -90,14 +95,65 @@ def choose_stat():
     print(color_me(f"{'🌟 STAR WARS 🌟':^30}", "yellow"))
     print(color_me("\nEstadísticas: ", "blue"))
 
-    print(f"    {'1 - Altura':<17} | {'2 - Inteligencia':^30} | 3 - Lado oscuro")
-    print(f"    {'4 - Poderes Jedi':<18}| {'5 - Habilidades de batalla':^31}| 6 - Factor Fuerza")
+    print(f"    {'1 - Altura':<17} | {'2 - Inteligencia':^30} | " +
+          "3 - Lado oscuro")
+    print(
+        f"    {'4 - Poderes Jedi':<18}| {'5 - Habilidades de batalla':^31} " +
+        "| 6 - Factor Fuerza")
+
+    option = input_color(
+        "Elige la estadística con la que deseas comparar: ", color_input="green")
+    if not option.isnumeric():
+        return None
+
+    option = int(option)
+    if option < 1 or option > 6:
+        return None
+    elif option == 1:
+        return "Altura"
+    elif option == 2:
+        return "Inteligencia"
+    elif option == 3:
+        return "Lado oscuro"
+    elif option == 4:
+        return "Poderes Jedi"
+    elif option == 5:
+        return "Habilidades de batalla"
+    elif option == 6:
+        return "Factor Fuerza"
 
 
-character = show_menu()
-print(f"\nHas seleccionado a {color_me(character, 'cyan')}.")
+while True:
+    player_char = show_menu()
 
-computer = random.choice(list(cards))
-print(f"La computadora ha elegido a {color_me(computer, 'magenta')}")
+    if player_char == "s":
+        break
+    elif player_char == None:
+        print(color_me("No has seleccionado una opción válidad. " +
+                       "Intenta de nuevo...", "red"))
+        time.sleep(3)
+        continue
 
-choose_stat()
+    print(f"\nHas seleccionado a {color_me(player_char, 'cyan')}.")
+
+    computer_char = random.choice(list(cards))
+    print(f"La computadora ha elegido a {color_me(computer_char, 'magenta')}")
+    time.sleep(3)
+
+    stat = None
+    while stat == None:
+        stat = choose_stat()
+        if stat == None:
+            print(color_me("No has seleccionado una opción válidad. " +
+                           "Intenta de nuevo...", "red"))
+            time.sleep(3)
+
+    print(f"\nTú {player_char}, tienes {cards[player_char][stat]} de {stat}")
+    print(f"La computadora {computer_char}, tiene " +
+          f"{cards[computer_char][stat]} de {stat}")
+    if cards[player_char][stat] > cards[computer_char][stat]:
+        print(color_me("\n¡HAS GANADO! 🥳\n", "cyan"))
+    else:
+        print(color_me("\n¡HAS PERDIDO! 😢\n", "magenta"))
+
+    press_enter_to_continue()
