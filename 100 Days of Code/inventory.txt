@@ -1,0 +1,1 @@
+['Posión de maná', 'Espada larga', 'Escudo', 'Posión de vida', 'Posión de vida']
