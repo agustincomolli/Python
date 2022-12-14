@@ -1,7 +1,7 @@
 import os
 
 
-def color_me(text, color):
+def color_me(text, color=""):
     """
         DESCRIPTION: Devuelve un texto, con el código del color seleccionado.\n
         PARAMETERS:\n
