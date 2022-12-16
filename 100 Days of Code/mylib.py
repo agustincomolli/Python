@@ -1,82 +1,64 @@
 import os
 
+# Diccionario que contiene los códigos de colores ANSI y sus nombres 
+# correspondientes.
+colors = {
+    "default": "\033[0m",
+    "red": "\033[31m",
+    "green": "\033[32m",
+    "yellow": "\033[33m",
+    "blue": "\033[34m",
+    "magenta": "\033[35m",
+    "cyan": "\033[36m"
+}
+
+def get_color_code(color):
+    """
+        DESCRIPTION: Devuelve el código de color ANSI para el color especificado.
+        PARAMETERS:
+                    - color: El nombre del color (por ejemplo, "red", "green", etc.)
+        RETURNS:    El código de color ANSI para el color especificado, o el código
+                    de color predeterminado si el color no se reconoce.
+    """
+    return colors.get(color, colors["default"])
+
 
 def color_me(text, color=""):
     """
-        DESCRIPTION: Devuelve un texto, con el código del color seleccionado.\n
-        PARAMETERS:\n
-                    - text: es el texto a colorear
-                    - color: red, green, yellow, blue, magenta o cyan.
+        DESCRIPTION: Devuelve el texto especificado con el código de color 
+                     ANSI especificado.
+        PARAMETERS:
+                    - text: El texto a colorear.
+                    - color: El nombre del color a usar (por ejemplo, "red", 
+                    "green", etc.)
+        RETURNS:    El texto especificado con el código de color ANSI especificado.
     """
-    default_color = "\033[0m"
-    red_color = "\033[31m"
-    green_color = "\033[32m"
-    yellow_color = "\033[33m"
-    blue_color = "\033[34m"
-    magenta_color = "\033[35m"
-    cyan_color = "\033[36m"
-
-    if color == "red":
-        color = red_color
-    elif color == "green":
-        color = green_color
-    elif color == "blue":
-        color = blue_color
-    elif color == "yellow":
-        color = yellow_color
-    elif color == "magenta":
-        color = magenta_color
-    elif color == "cyan":
-        color = cyan_color
-    else:
-        color = default_color
-
-    return color + text + default_color
+    color_code = get_color_code(color)
+    return color_code + text + colors["default"]
 
 
 def input_color(message, color_message="", color_input=""):
     """
-        DESCRIPTION: Crea un input que tiene el mensaje en color y el texto
-                     de entrada en color.\n
-        PARAMETERS:\n
-                    - message: es el texto del mensaje al usuario.
-                    - color_message y color_input: red, green, yellow, blue,
-                      magenta o cyan.
+        DESCRIPTION: Muestra un mensaje al usuario con un mensaje coloreado y
+                     acepta la entrada del usuario con una solicitud coloreada.
+        PARAMETERS:
+                    - message: El mensaje a mostrar al usuario.
+                    - color_message: El nombre del color a usar para el mensaje
+                      (por ejemplo, "red", "green", etc.)
+                    - color_input: El nombre del color a usar para la solicitud
+                      de entrada (por ejemplo, "red", "green", etc.)
+        RETURNS:    La entrada del usuario.
     """
-
-    default_color = "\033[0m"
-    red_color = "\033[31m"
-    green_color = "\033[32m"
-    yellow_color = "\033[33m"
-    blue_color = "\033[34m"
-    magenta_color = "\033[35m"
-    cyan_color = "\033[36m"
-
-    if color_input == "red":
-        color_input = red_color
-    elif color_input == "green":
-        color_input = green_color
-    elif color_input == "blue":
-        color_input = blue_color
-    elif color_input == "yellow":
-        color_input = yellow_color
-    elif color_input == "magenta":
-        color_input = magenta_color
-    elif color_input == "cyan":
-        color_input = cyan_color
-    else:
-        color_input = default_color
-
-    value = input(color_me(message, color_message) + color_input)
-    print(default_color, end="")
-
+    color_code = get_color_code(color_input)
+    value = input(color_me(message, color_message) + color_code)
+    print(colors["default"], end="")  # Reset the color to the default
     return value
 
 
 def clear_screen():
     """
-        DESCRIPTION: Limpiar la pantalla según el sistena operativo.
-                     posix = Linux o MAC
+        DESCRIPTION: Limpia la pantalla de acuerdo al sistema operativo.
+                     posix = Linux or MAC
     """
     if os.name == "posix":
         os.system("clear")
@@ -86,7 +68,50 @@ def clear_screen():
 
 def press_enter_to_continue():
     """
-        DESCRIPTION: Muestra un mensaje para hacer una pausa.
-
+        DESCRIPTION: Muestra un mensaje que solicita al usuario que presione 
+                     "Enter" para continuar.
     """
     input("Presione " + color_me("ENTER", "yellow") + " para continuar...")
+
+
+def choose_option(options):
+    """
+    DESCRIPTION: Muestra un menú con las opciones especificadas y solicita al 
+                 usuario que elija una opción.
+    PARAMETERS:
+                - options: Una lista de opciones a mostrar en el menú.
+    RETURNS:    La opción seleccionada por el usuario.
+    """
+    while True:
+        for i, option in enumerate(options):
+            print(f"{i+1}- {option}")
+        
+        # Solicita al usuario que elija una opción
+        choice = input("\nElija una opción: ")
+        
+        # Verifica que la opción sea válida
+        if choice.isdigit() and int(choice) > 0 and int(choice) <= len(options):
+            return options[int(choice)-1]
+        else:
+            print("Opción inválida, intente de nuevo.")
+
+
+def input_int_range(message, min_value, max_value):
+    """
+    DESCRIPTION: Muestra un mensaje al usuario y solicita un número entero en 
+                 un rango especificado.
+    PARAMETERS:
+                - message: El mensaje a mostrar al usuario.
+                - min_value: El valor mínimo permitido para el número.
+                - max_value: El valor máximo permitido para el número.
+    RETURNS:    El número entero seleccionado por el usuario.
+    """
+    while True:
+        # Solicita al usuario que introduzca un número
+        value = input(message)
+        
+        # Verifica que el número sea un entero y esté en el rango especificado
+        if value.isdigit() and int(value) >= min_value and int(value) <= max_value:
+            return int(value)
+        else:
+            print("Valor inválido, intente de nuevo.")
