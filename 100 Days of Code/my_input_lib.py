@@ -107,12 +107,37 @@ def input_password(message):
     while True:
         password = getpass.getpass(message)
         if len(password) < 8:
-            print("La contraseña debe tener al menos 8 caracteres. Por favor, inténtelo de nuevo.")
+            print(
+                "La contraseña debe tener al menos 8 caracteres. Por favor, inténtelo de nuevo.")
         elif not any(char.isdigit() for char in password):
-            print("La contraseña debe tener al menos un dígito. Por favor, inténtelo de nuevo.")
+            print(
+                "La contraseña debe tener al menos un dígito. Por favor, inténtelo de nuevo.")
         elif not any(char.isupper() for char in password):
-            print("La contraseña debe tener al menos una mayúscula. Por favor, inténtelo de nuevo.")
+            print(
+                "La contraseña debe tener al menos una mayúscula. Por favor, inténtelo de nuevo.")
         elif not any(char.islower() for char in password):
-            print("La contraseña debe tener al menos una minúscula. Por favor, inténtelo de nuevo.")
+            print(
+                "La contraseña debe tener al menos una minúscula. Por favor, inténtelo de nuevo.")
         else:
             return password
+
+
+def input_int_range(message, min_value, max_value):
+    """
+    DESCRIPTION: Muestra un mensaje al usuario y solicita un número entero en 
+                 un rango especificado.
+    PARAMETERS:
+                - message: El mensaje a mostrar al usuario.
+                - min_value: El valor mínimo permitido para el número.
+                - max_value: El valor máximo permitido para el número.
+    RETURNS:    El número entero seleccionado por el usuario.
+    """
+    while True:
+        # Solicita al usuario que introduzca un número
+        value = input(message)
+
+        # Verifica que el número sea un entero y esté en el rango especificado
+        if value.isdigit() and int(value) >= min_value and int(value) <= max_value:
+            return int(value)
+        else:
+            print("Valor inválido, intente de nuevo.")

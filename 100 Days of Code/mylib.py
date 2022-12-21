@@ -74,15 +74,19 @@ def press_enter_to_continue():
     input("Presione " + color_me("ENTER", "yellow") + " para continuar...")
 
 
-def choose_option(options):
+def choose_option(title:str, options:list):
     """
     DESCRIPTION: Muestra un menú con las opciones especificadas y solicita al 
                  usuario que elija una opción.
     PARAMETERS:
+                - title: El título del menú
                 - options: Una lista de opciones a mostrar en el menú.
     RETURNS:    La opción seleccionada por el usuario.
     """
     while True:
+        clear_screen()
+        print(title + "\n")
+
         for i, option in enumerate(options):
             print(f"{i+1}- {option}")
         
@@ -91,27 +95,8 @@ def choose_option(options):
         
         # Verifica que la opción sea válida
         if choice.isdigit() and int(choice) > 0 and int(choice) <= len(options):
-            return options[int(choice)-1]
+            # return options[int(choice)-1]
+            return int(choice)
         else:
-            print("Opción inválida, intente de nuevo.")
-
-
-def input_int_range(message, min_value, max_value):
-    """
-    DESCRIPTION: Muestra un mensaje al usuario y solicita un número entero en 
-                 un rango especificado.
-    PARAMETERS:
-                - message: El mensaje a mostrar al usuario.
-                - min_value: El valor mínimo permitido para el número.
-                - max_value: El valor máximo permitido para el número.
-    RETURNS:    El número entero seleccionado por el usuario.
-    """
-    while True:
-        # Solicita al usuario que introduzca un número
-        value = input(message)
-        
-        # Verifica que el número sea un entero y esté en el rango especificado
-        if value.isdigit() and int(value) >= min_value and int(value) <= max_value:
-            return int(value)
-        else:
-            print("Valor inválido, intente de nuevo.")
+            print(color_me("\nOpción inválida, intente de nuevo.", "red"))
+            press_enter_to_continue()
