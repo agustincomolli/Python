@@ -1,5 +1,5 @@
 from mylib import choose_option, clear_screen, color_me, input_color
-from mylib import press_enter_to_continue
+from mylib import press_enter_to_continue, show_error
 import getpass
 import datetime
 
@@ -61,7 +61,7 @@ print(color_me("📰 Diario secreto 🔒\n", "yellow"))
 # Pedir contraseña de acceso al programa.
 password = getpass.getpass("Ingrese la contraseña de entrada: ")
 if password != "pass":
-    print(color_me("\nERROR: Contraseña inválida.", "red"))
+    show_error("Contraseña inválida.")
     exit()
 
 while True:
