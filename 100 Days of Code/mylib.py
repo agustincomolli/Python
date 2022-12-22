@@ -1,6 +1,6 @@
 import os
 
-# Diccionario que contiene los códigos de colores ANSI y sus nombres 
+# Diccionario que contiene los códigos de colores ANSI y sus nombres
 # correspondientes.
 colors = {
     "default": "\033[0m",
@@ -11,6 +11,7 @@ colors = {
     "magenta": "\033[35m",
     "cyan": "\033[36m"
 }
+
 
 def get_color_code(color):
     """
@@ -37,20 +38,18 @@ def color_me(text, color=""):
     return color_code + text + colors["default"]
 
 
-def input_color(message, color_message="", color_input=""):
+def input_color(message, color_input=""):
     """
         DESCRIPTION: Muestra un mensaje al usuario con un mensaje coloreado y
                      acepta la entrada del usuario con una solicitud coloreada.
         PARAMETERS:
                     - message: El mensaje a mostrar al usuario.
-                    - color_message: El nombre del color a usar para el mensaje
-                      (por ejemplo, "red", "green", etc.)
                     - color_input: El nombre del color a usar para la solicitud
                       de entrada (por ejemplo, "red", "green", etc.)
         RETURNS:    La entrada del usuario.
     """
     color_code = get_color_code(color_input)
-    value = input(color_me(message, color_message) + color_code)
+    value = input(message + color_code)
     print(colors["default"], end="")  # Reset the color to the default
     return value
 
@@ -74,7 +73,7 @@ def press_enter_to_continue():
     input("Presione " + color_me("ENTER", "yellow") + " para continuar...")
 
 
-def choose_option(title:str, options:list):
+def choose_option(title: str, options: list, color_input=""):
     """
     DESCRIPTION: Muestra un menú con las opciones especificadas y solicita al 
                  usuario que elija una opción.
@@ -88,11 +87,13 @@ def choose_option(title:str, options:list):
         print(title + "\n")
 
         for i, option in enumerate(options):
-            print(f"{i+1}- {option}")
-        
+            print(f"{i+1} - {option}")
+
         # Solicita al usuario que elija una opción
-        choice = input("\nElija una opción: ")
-        
+        color_code = get_color_code(color_input)
+        choice = input("\nElija una opción: " + color_code)
+        print(colors["default"], end="")  # Reset the color to the default
+
         # Verifica que la opción sea válida
         if choice.isdigit() and int(choice) > 0 and int(choice) <= len(options):
             # return options[int(choice)-1]
@@ -100,3 +101,47 @@ def choose_option(title:str, options:list):
         else:
             print(color_me("\nOpción inválida, intente de nuevo.", "red"))
             press_enter_to_continue()
+
+
+def show_error(message):
+    """
+    DESCRIPTION: Muestra un mensaje de error de manera más visual.
+    PARAMETERS:
+                - message: Mensaje de error a mostrar.
+    """
+    print(color_me("ERROR: ", "red") + message)
+
+
+def warning(message):
+    """
+    DESCRIPTION: Muestra un mensaje de advertencia al usuario y solicita 
+                 una respuesta afirmativa o negativa.
+    PARAMETERS:
+                - message: Mensaje de advertencia a mostrar.
+    RETURNS:    True si el usuario responde afirmativamente, False en caso 
+                contrario.
+    """
+    while True:
+        response = input(f"{color_me(message, 'yellow')}\n" +
+                         "¿Desea continuar? (s/n) ").lower()
+        if response == "s":
+            return True
+        elif response == "n":
+            return False
+
+
+def confirm(message):
+    """
+    DESCRIPTION: Muestra un mensaje de confirmación al usuario y solicita una 
+                 respuesta afirmativa o negativa.
+    PARAMETERS:
+                - message: Mensaje de confirmación a mostrar.
+    RETURNS:    True si el usuario responde afirmativamente, False en caso 
+                contrario.
+    """
+    while True:
+        response = input(f"{message} (s/n) ").lower()
+        if response == "s":
+            return True
+        elif response == "n":
+            return False

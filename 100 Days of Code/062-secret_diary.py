@@ -69,7 +69,7 @@ while True:
 
     menu_title = color_me("📰 Diario secreto 🔒", "yellow")
     menu_options = ["Agregar", "Ver", "Salir"]
-    choice = choose_option(menu_title, menu_options)
+    choice = choose_option(menu_title, menu_options, "green")
 
     if choice == 1:
         add()

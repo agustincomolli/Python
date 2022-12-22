@@ -49,7 +49,7 @@ def input_date(message):
     return date
 
 
-def input_numero(message):
+def input_number(message):
     """
     Pide al usuario que ingrese un número y valida la entrada.
 
@@ -85,12 +85,12 @@ def input_yes_no(message):
         response = input(message)
 
         # Validamos la entrada del usuario
-        if response.lower() == "sí" or response.lower() == "yes":
+        if response.lower() == "s":
             return True
-        elif response.lower() == "no":
+        elif response.lower() == "n":
             return False
         else:
-            print("Por favor ingrese 'sí' o 'no' / 'yes' or 'no'.")
+            print("Por favor ingrese 's' o 'n'.")
 
 
 def input_password(message):
