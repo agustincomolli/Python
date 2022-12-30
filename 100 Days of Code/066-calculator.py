@@ -1,10 +1,52 @@
 import tkinter as tk
 
 
+def do_operation(number1: str, operator: str, number2: str):
+    # Convertir los números en cadenas a formato de números con decimales.
+    number1 = float(number1)
+    number2 = float(number2)
+    
+    # Realizar la operación matemática de acuerdo al operador.
+    if operator == "+":
+        result = number1 + number2
+    elif operator == "-":
+        result = number1 - number2
+    elif operator == "*":
+        result = number1 * number2
+    elif operator == "/":
+        if number2 == 0:
+            return "ERROR"
+        result = number1 / number2
+
+    # Si el resultado de la operación da un decimal 0, quedarse
+    # con la parte entera...
+    if float(result) % 1 == 0.0:
+        result = int(result)
+
+    return str(result)
+
+
+def reset():
+    # Reiniciar la calculador.
+
+    global number_in_memory
+    global operator
+    global is_new_number
+
+    result_label["text"] = "0"
+    number_in_memory = None
+    is_new_number = True
+    operator = None
+
+
 def button_pressed(value: str):
     global number_in_memory
     global operator
     global is_new_number
+
+    # Si hay un error, reiniciar la calculadora.
+    if result_label["text"] == "ERROR":
+        reset()
 
     # Si presiona un número...
     if value.isdigit():
@@ -19,38 +61,27 @@ def button_pressed(value: str):
         result_label["text"] += value
     # Si ingresa un operador matemático...
     elif value in ["+", "-", "*", "/"]:
-        # ¿No hay ningún número en memoria?...
+        # ¿Si no hay un número en memoria?...
         if number_in_memory == None:
+            # Guardar el número y habilitar el ingreso de un número nuevo.
             number_in_memory = result_label["text"]
             is_new_number = True
         else:
-            # Evaluar la operación y mostrar el resultado.
-            result = eval(number_in_memory + operator + result_label["text"])
-            # Si el resultado de la operación da un decimal 0, quedarse
-            # con la parte entera...
-            if float(result) % 1 == 0.0:
-                result = int(result)
-            number_in_memory = str(result)
+            # Realizar la operación matemática.
+            number_in_memory = do_operation(
+                number_in_memory, operator, result_label["text"])
             result_label["text"] = number_in_memory
             is_new_number = True
         # Guardo temporalmente el operador ingresado.
         operator = value
     elif value == "=":
         if number_in_memory != None:
-            # Evaluar la operación y mostrar el resultado.
-            result = eval(number_in_memory + operator + result_label["text"])
-            # Si el resultado de la operación da un decimal 0, quedarse
-            # con la parte entera...
-            if float(result) % 1 == 0.0:
-                result = int(result)
-            result_label["text"] = str(result)
+            result_label["text"] = do_operation(
+                number_in_memory, operator, result_label["text"])
             number_in_memory = None
             is_new_number = True
     else:
-        # Si presiona el botón "C", resetear la calculadora.
-        result_label["text"] = "0"
-        number_in_memory = None
-        is_new_number = True
+        reset()
 
 
 def create_buttons():
