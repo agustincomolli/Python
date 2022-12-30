@@ -2,11 +2,56 @@ import tkinter as tk
 
 
 def button_pressed(value: str):
+    global number_in_memory
+    global operator
+    global is_new_number
+
+    # Si presiona un número...
     if value.isdigit():
-        if result_label["text"] == "0":
+        # ¿Está ingresando un número nuevo?...
+        if is_new_number:
             result_label["text"] = value
+            is_new_number = False
         else:
             result_label["text"] += value
+    # Si ingresa el punto y no está anteriormente ingresado...
+    elif value == "." and value not in result_label["text"]:
+        result_label["text"] += value
+    # Si ingresa un operador matemático...
+    elif value in ["+", "-", "*", "/"]:
+        # ¿No hay ningún número en memoria?...
+        if number_in_memory == None:
+            number_in_memory = result_label["text"]
+            is_new_number = True
+        else:
+            # Evaluar la operación y mostrar el resultado.
+            result = eval(number_in_memory + operator + result_label["text"])
+            # Si el resultado de la operación da un decimal 0, quedarse
+            # con la parte entera...
+            if float(result) % 1 == 0.0:
+                result = int(result)
+            number_in_memory = str(result)
+            result_label["text"] = number_in_memory
+            is_new_number = True
+        # Guardo temporalmente el operador ingresado.
+        operator = value
+    elif value == "=":
+        if number_in_memory != None:
+            # Evaluar la operación y mostrar el resultado.
+            result = eval(number_in_memory + operator + result_label["text"])
+            # Si el resultado de la operación da un decimal 0, quedarse
+            # con la parte entera...
+            if float(result) % 1 == 0.0:
+                result = int(result)
+            result_label["text"] = str(result)
+            number_in_memory = None
+            is_new_number = True
+    else:
+        # Si presiona el botón "C", resetear la calculadora.
+        result_label["text"] = "0"
+        number_in_memory = None
+        is_new_number = True
+
 
 def create_buttons():
     """
@@ -43,7 +88,9 @@ def create_buttons():
         button.config(command=lambda v=value: button_pressed(v))
 
 
-result = 0
+number_in_memory = None
+operator = None
+is_new_number = True
 # Crear la ventana y establecer el título.
 window = tk.Tk()
 window.title("Calculadora")
