@@ -28,7 +28,7 @@ def change_image():
                      partida. Si no mostrar un mensaje de que perdió.
     """
     global image
-    text = textbox.get()
+    text = textbox.get().lower()
     image_name = image.cget("file")
 
     if text == "perro" and image_name == "dog.png":
@@ -46,7 +46,6 @@ def change_image():
         new_label.grid(row=3, column=0, pady=(80))
         # Deshabilitar el botón.
         find_button["state"] = "disabled"
-
     else:
         # Eliminar el objeto canvas con los objetos que contiene.
         canvas.destroy()
