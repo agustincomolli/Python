@@ -18,26 +18,36 @@ def change_image():
     global image
 
     text = textbox.get().lower()
+    # Limpiar la caja de texto.
+    textbox.delete(0, "end")
     image_name = image.cget("file")
+    image_dict = {
+        "perro": "./guess_who/cat.png",
+        "gato": "./guess_who/chicken.png",
+        "gallina": "./guess_who/bunny.png",
+        "conejo": "./guess_who/monkey.png",
+        "mono": "./guess_who/panda.png",
+        "oso panda": "./guess_who/panda.png"
+    }
+    # Obtener la imagen siguiente.
+    next_image = image_dict.get(text, None)
 
-    if text == "perro" and image_name == "./guess_who/dog.png":
-        image = tk.PhotoImage(file="./guess_who/cat.png")
-        canvas.itemconfig(container, image=image)
-    elif text == "gato" and image_name == "./guess_who/cat.png":
-        image = tk.PhotoImage(file="./guess_who/chicken.png")
-        canvas.itemconfig(container, image=image)
-    elif text == "gallina" and image_name == "./guess_who/chicken.png":
-        image = tk.PhotoImage(file="./guess_who/bunny.png")
-        canvas.itemconfig(container, image=image)
-    elif text == "conejo" and image_name == "./guess_who/bunny.png":
-        image = tk.PhotoImage(file="./guess_who/monkey.png")
-        canvas.itemconfig(container, image=image)
-    elif text == "mono" and image_name == "./guess_who/monkey.png":
-        image = tk.PhotoImage(file="./guess_who/panda.png")
-        canvas.itemconfig(container, image=image)
+    if next_image == None:
+        # Ocultar el objeto canvas con los objetos que contiene.
+        canvas.grid_forget()
+        # Mostrar etiqueta que perdió
+        new_label = tk.Label(
+            text="¡Perdiste!", foreground="red", font=("Helvetica", 20, "bold"))
+        new_label.grid(row=3, column=0, pady=(80))
+        # Deshabilitar el botón.
+        find_button["state"] = "disabled"
+        # Crear botón para reiniciar el juego.
+        restart_button = tk.Button(text="Reiniciar", width=10,
+                                   height=2, command=restart_game)
+        restart_button.grid(row=4, column=0, pady=(10, 5))
     elif text == "oso panda" and image_name == "./guess_who/panda.png":
-        # Eliminar el objeto canvas con los objetos que contiene.
-        canvas.destroy()
+        # Ocultar el objeto canvas con los objetos que contiene.
+        canvas.grid_forget()
         # Mostrar etiqueta que ganó
         new_label = tk.Label(
             text="¡Ganaste!", foreground="blue", font=("Helvetica", 20, "bold"))
@@ -49,21 +59,14 @@ def change_image():
                                    height=2, command=restart_game)
         restart_button.grid(row=4, column=0, pady=(10, 5))
     else:
-        # Eliminar el objeto canvas con los objetos que contiene.
-        canvas.destroy()
-        # Mostrar etiqueta que perdió
-        new_label = tk.Label(
-            text="¡Perdiste!", foreground="red", font=("Helvetica", 20, "bold"))
-        new_label.grid(row=3, column=0, pady=(80))
-        # Deshabilitar el botón.
-        find_button["state"] = "disabled"
-        # Crear botón para reiniciar el juego.
-        restart_button = tk.Button(text="Reiniciar", width=10,
-                                   height=2, command=restart_game)
-        restart_button.grid(row=4, column=0, pady=(10, 5))
+        image = tk.PhotoImage(file=next_image)
+        canvas.itemconfig(container, image=image)
 
 
 def create_game_widgets(window: tk.Tk):
+    """
+    Description: Crea todos los objetos de la interfaz del juego.
+    """
     # Crear el título.
     title = tk.Label(text="¿Quién es Quién?", foreground="darkcyan",
                      font=("Helvetica", 14, "bold"))
