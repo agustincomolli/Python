@@ -11,7 +11,7 @@ while True:
     user = input_color("Usuario: ", "green")
     password = input_color("Contraseña: ", "green")
     if user == os.environ["user_name"] and password == os.environ["user_pass"]:
-        print(color_me("Hola Agustín, bienvenido.", "blue"))
+        print(color_me("\nHola Agustín, bienvenido.\n", "blue"))
         break
     else:
         show_error("Usuario o contraseña inválida, inténtelo de nuevo.")
