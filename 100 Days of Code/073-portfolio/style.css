@@ -20,6 +20,11 @@ h2 {
 
 h1 {
   text-align: center;
+  background-color: #A27B5C;
+  margin-top: -2.5em;
+  margin-left: -2.5em;
+  margin-right: -2.5em;
+  padding: 1em 0;
 }
 
 h2 {
@@ -42,4 +47,32 @@ img {
 
 div {
   text-align: center;
+}
+
+#hangman,
+#star-wars {
+  width: 500px;
+}
+
+#calculator,
+#who-is-who {
+  height: 300px ;
+}
+
+footer {
+  background-color: #2C3639;
+  text-align: right;
+  font-size: x-small;
+  padding: 0.5em;
+  margin-top: 1.5em;
+  margin-left: -7.9em;
+  margin-right: -7.9em;
+  margin-bottom: -10;
+  height: 50px;
+}
+
+footer > p {
+  color: #DCD7C9;
+  margin: 0;
+  padding-right: 1.5em;
 }
