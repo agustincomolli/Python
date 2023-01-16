@@ -68,6 +68,15 @@ body {
     border-radius: 10px;
     box-shadow: 6px 10px 8px gray;
   }
+
+  form label {
+    float: left;
+    width: 100px;
+  }
+
+  form input {
+    display: block;
+  }
   
   footer {
     background-color: #2C3639;
