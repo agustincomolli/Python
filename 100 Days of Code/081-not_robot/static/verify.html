@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡No soy un robot!</title>
+  <link rel="stylesheet" href="./static/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>¡No soy un robot! 🤖</h1>
+  </header>
+  <main>
+    <form method="post" action="/verify">
+      <p>
+        <label>1. ¿Estás hecho de metal?</label><br>
+        <input type="radio" name="question-1" id="rd-yes" value="yes">Sí
+        <input type="radio" name="question-1" id="rd-no" value="no">No
+      </p>
+      <p><label for="cb-robots">2. ¿Cuál es tu modelo de robot favorito?</label>
+        <br>
+        <select name="question-2" id="cb-robots">
+          <option value="ed-209">ED-209</option>
+          <option value="c-3po">C-3PO</option>
+          <option value="r2-d2">R2-D2</option>
+          <option value="other">Otro</option>
+        </select>
+      </p>
+      <p><label for="txt-opinion">3. ¿Cuánto es tres más 2? (No usar números)</label><br>
+        <input type="text" name="question-3" id="txt-opinion"></textarea>
+      </p>
+      <p><input type="submit" value="✔️ No soy un robot"></p>
+      </p>
+    </form>
+  </main>
+  <footer>
+    <h3>Contacto</h3>
+    <p>Si tienes alguna pregunta o comentario acerca de mis proyectos, no dudes en ponerte en contacto
+      conmigo. <br>
+      <a href="mailto:agustincomolli@gmail.com">agustincomolli@gmail.com</a>
+    </p>
+  </footer>
+</body>
+
+</html>
