@@ -81,8 +81,8 @@ def reset():
     return redirect("/")
 
 
-@app.route("/alredy")
-def alredy():
+@app.route("/already")
+def already():
     with open("./templates/template.html", mode="r", encoding="UTF-8") as file:
         page = file.read()
 
@@ -90,9 +90,11 @@ def alredy():
     title = f"{user}"
     message = f"<h2 class='message'>Ya iniciaste sesión, no jodás más.</h2>"
     message += "<p class='icon'>🤌</p>"
-    url = "'/reset'"
-    message += f"<p class='session'><button type='button' onclic='location.href={url}'>"
-    message += "Cerrar sesión</button></p>"
+    message += "<form action='/reset'>"
+    url = "/reset"
+    message += "<p class='session'><input type='submit' value='Cerrar sesión'>"
+    message += "</input></p></form>"
+    
 
     page = page.replace("{title}", title)
     page = page.replace("{content}", message)
@@ -102,6 +104,8 @@ def alredy():
 
 @app.route("/signup", methods=["POST"])
 def signup():
+    if session.get("user"):
+        return redirect("/already")
     form = request.form
     # Fortalecer la contraseña.
     salt = randint(1000, 9999)
@@ -129,6 +133,8 @@ def signup():
 
 @app.route("/login", methods=["POST"])
 def login():
+    if session.get("user"):
+        return redirect("/already")
     form = request.form
 
     with open("./templates/template.html", mode="r", encoding="UTF-8") as file:
@@ -153,8 +159,7 @@ def login():
 @app.route("/")
 def index():
     if session.get("user"):
-        return redirect("/alredy")
-
+        return redirect("/already")
     with open("./static/index.html", mode="r", encoding="UTF-8") as file:
         page = file.read()
 
