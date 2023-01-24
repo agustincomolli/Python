@@ -1,0 +1,155 @@
+:root {
+  /* Definir la paleta de colores */
+  --color-1: #2C3639;
+  --color-2: #3F4E4F;
+  --color-3: #A27B5C;
+  --color-4: #DCD7C9;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-4);
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: 90px 1fr auto;
+  grid-template-areas: "header" "main" "footer";
+}
+
+header {
+  display: flex;
+  align-items: center;
+  height: 2.7em;
+  background-color: var(--color-3);
+  padding: 10px 0;
+  grid-area: header;
+}
+
+header h1 {
+  margin: 0 auto;
+}
+
+header img {
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: none;
+  margin-left: 15px;
+}
+
+main {
+  margin: 0 5em 0 5em;
+  grid-area: main;
+}
+
+form {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form label {
+  display: inline-block;
+  width: 80px;
+  margin-right: 10px;
+}
+
+form input[type="submit"] {
+  padding: 5px 20px;
+}
+
+form input[type="button"],
+button {
+  padding: 5px 20px;
+  margin-left: 50px;
+}
+
+h1,
+h2 {
+  color: #2C3639;
+}
+
+h1 {
+  text-align: center;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.message {
+  text-align: center;
+  margin-top: 4em;
+  font-size: 1.5em;
+  color: #3F4E4F;
+}
+
+.icon {
+  text-align: center;
+  font-size: 4em;
+  margin-block: 0;
+}
+.session {
+  text-align: center;
+  margin-top: 2em;
+}
+
+p,
+ul {
+  font-size: 11pt;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  color: #3F4E4F;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-3);
+}
+
+a:hover {
+  font-weight: bold;
+}
+
+img {
+  border-radius: 10px;
+  box-shadow: 6px 10px 8px gray;
+}
+
+footer {
+  background-color: #2C3639;
+  text-align: center;
+  padding: 0.5em 0.5em;
+  margin-top: 3em;
+  height: 50px;
+  color: var(--color-4);
+  grid-area: footer;
+}
+
+footer h3 {
+  margin-top: 0;
+  margin-bottom: 0.1em;
+  font-size: 11pt;
+}
+
+footer p {
+  color: var(--color-4);
+  margin: 0;
+  font-size: 9pt;
+}
+
+footer a {
+  color: var(--color-4);
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: var(--color-3);
+}
