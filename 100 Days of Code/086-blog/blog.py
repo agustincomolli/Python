@@ -75,6 +75,7 @@ title = input("Título: ")
 content = input("Contenido: ")
 
 blog_date = datetime.strptime(blog_date, "%d-%m-%Y")
+blog_date = blog_date.date()
 
 insert_blog_entry(blog_date, title, content)
 
