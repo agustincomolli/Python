@@ -5,7 +5,21 @@ import os
 import secrets  # Para generar la clave secreta para las sesiones.
 
 
-def is_valid_user(user_login:dict):
+def create_add_page():
+    """
+    Description: Abre la página para agregar entradas al blog y carga el
+                 contenido del mismo.
+    """
+
+    with open("./static/add.html", mode="r", encoding="UTF-8") as file:
+        page = file.read()
+
+    page = page.replace("{content}", create_blog_page())
+
+    return page
+
+
+def is_valid_user(user_login: dict):
     """
     Description: Valida si los datos de inicio de sesión coinciden con la base de datos.
     Parameters:  - login: diccionario con los datos ingresados por el usuario.
@@ -59,7 +73,7 @@ def create_simple_form():
 
     html_code = "<form action='/login-form'>"
     html_code += "<input type='submit' value='Iniciar sesión'>"
-    html_code += "</form>"
+    html_code += "</form><hr>"
 
     return html_code
 
@@ -141,16 +155,42 @@ app = Flask(__name__, static_url_path="/static")
 app.secret_key = generate_secret_key()
 
 
+@app.route("/save", methods=["POST"])
+def save():
+    form = request.form
+    insert_blog_entry(form["date"], form["title"], form["content"])
+    return create_add_page()
+
+@app.route("/reset")
+def reset():
+    session.clear()
+    return redirect("/")
+
+
 @app.route("/login", methods=["POST"])
 def login():
     form = request.form
-    if is_valid_user(form):
-        return redirect("/")
+    if not is_valid_user(form):
+        with open("./static/login.html", mode="r", encoding="UTF-8") as file:
+            page = file.read()
+
+        html_code = "</form><h2 class='message'>Los datos ingresados no son correctos</h2>"
+        html_code += "<p class='icon'>😵‍💫</p>"
+        page = page.replace("</form>", html_code)
+
+        return page
+
+    return create_add_page()
+
 
 @app.route("/login-form")
 def login_form():
+    if session.get("login"):
+        return create_add_page()
+
     with open("./static/login.html", mode="r", encoding="UTF-8") as file:
         page = file.read()
+
     return page
 
 
@@ -163,12 +203,11 @@ def index():
         page = file.read()
 
     if session.get("login"):
-        form =f"<h1>{session['name']}</h1>"
+        return create_add_page()
     else:
         form = create_simple_form()
 
     content = form + create_blog_page()
-
     page = page.replace("{content}", content)
 
     return page

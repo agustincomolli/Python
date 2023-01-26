@@ -91,7 +91,6 @@ def already():
     message = f"<h2 class='message'>Ya iniciaste sesión, no jodás más.</h2>"
     message += "<p class='icon'>🤌</p>"
     message += "<form action='/reset'>"
-    url = "/reset"
     message += "<p class='session'><input type='submit' value='Cerrar sesión'>"
     message += "</input></p></form>"
     

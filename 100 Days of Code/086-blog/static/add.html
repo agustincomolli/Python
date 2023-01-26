@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Blog</title>
+  <link rel="stylesheet" href="./static/css/style.css">
+</head>
+
+<body>
+  <header>
+    <img src="./static/images/logo.png">
+    <h1>El Blog</h1>
+  </header>
+  <main>
+    <form method="post" action="/save">
+      <p><label for="title">Título: </label><input type="text" name="title" id="title" required></p>
+      <p><label for="date">Fecha: </label><input type="date" name="date" id="date" required></p>
+      <p>
+        <label for="content">Contenido: </label>
+        <textarea  name="content" id="content" required rows="3" cols="50"></textarea>
+      </p>
+      <p>
+        <input type="submit" value="Guardar" id="btn-save">
+        <input type="button" value="Cerrar sesión" id="btn-logout" onclick="location.href='/reset'">
+      </p>
+    </form>
+    <hr>
+    {content}
+  </main>
+  <footer>
+    <h3>Contacto</h3>
+    <p>Si tienes alguna pregunta o comentario acerca de mis proyectos, no dudes en ponerte en contacto
+      conmigo. <br>
+      <a href="mailto:agustincomolli@gmail.com">agustincomolli@gmail.com</a>
+    </p>
+  </footer>
+</body>
+
+</html>
