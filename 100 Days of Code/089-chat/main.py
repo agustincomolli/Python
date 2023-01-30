@@ -11,16 +11,35 @@ def get_emoji():
     """
 
     faces = [
-        "😀", "😁", "😉", "😎" , "🥰", "😍", "🤗", "🤪"
-        "🤔", "😑", "😶", "😶‍🌫️" , "🙄", "😮", "🤐", "😫"
-        "🥱", "😴", "😓", "🙃" , "🤑", "😖", "😟", "😤"
-        "🥸", "🤠", "🤡", "🤥" , "🤓", "😈", "👺", "💀"
+        "😀", "😁", "😉", "😎", "🥰", "😍", "🤗", "🤪"
+        "🤔", "😑", "😶", "😶‍🌫️", "🙄", "😮", "🤐", "😫"
+        "🥱", "😴", "😓", "🙃", "🤑", "😖", "😟", "😤"
+        "🥸", "🤠", "🤡", "🤥", "🤓", "😈", "👺", "💀"
         "😵‍💫", "😡", "🤯", "🥶", "🥵", "😇", "🥳", "😱"
     ]
 
     return faces
 
-def add_user_db(username:str, password:str, emoji:str, role:str):
+
+def add_chat_db(date: datetime, user_id: int, chat: str):
+    """
+    Description: Agrega una entrada al chat.
+    """
+
+    # Crear la conexión a la base de datos.
+    connection = sqlite3.connect("./data/chat.db")
+    # Crear el cursor a la base de datos.
+    cursor = connection.cursor()
+    # Ejecutar la instrucción SQL.
+    command_sql = "INSERT INTO chats (date, user_id, chat) VALUES (?, ?, ?)"
+    cursor.execute(command_sql, (date, user_id, chat,))
+    # Guardar los cambios.
+    connection.commit()
+    # Cerrar la base de datos.
+    connection.close()
+
+
+def add_user_db(username: str, password: str, emoji: str, role: str):
     """
     Description: Agrega un nuevo usario a la base de datos.
     """
@@ -30,8 +49,9 @@ def add_user_db(username:str, password:str, emoji:str, role:str):
     # Crear el cursor a la base de datos.
     cursor = connection.cursor()
     # Insertar el nuevo usuario.
-    command_sql = ""
-    cursor.execute(command_sql)
+    command_sql = "INSERT INTO users (username, password, emoji, role) "
+    command_sql += "VALUES (?, ?, ?, ?)"
+    cursor.execute(command_sql, (username, password, emoji, role,))
     # Guardar los cambios.
     connection.commit()
     # Cerrar la conexión a la base de datos.
@@ -42,14 +62,14 @@ def create_db():
     """
     Description: Crear la base de datos
     """
-    
+
     # Crear la conexión a la base de datos.
     connection = sqlite3.connect("./data/chat.db")
     # Crear el cursor a la base de datos.
     cursor = connection.cursor()
 
     # Crear la tabla usuarios.
-    command_sql = "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, " 
+    command_sql = "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, "
     command_sql += "password TEXT, emoji TEXT, role TEXT)"
     cursor.execute(command_sql)
 
