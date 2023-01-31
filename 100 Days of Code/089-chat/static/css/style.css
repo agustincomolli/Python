@@ -47,7 +47,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0.5em;
+  margin-top:2em;
 }
 
 form p {
@@ -102,6 +102,10 @@ h2 {
 #btn-save,
 #btn-logout {
   padding: 2px 20px;
+}
+
+#btn-login {
+  margin-top: 2em;
 }
 
 .message {

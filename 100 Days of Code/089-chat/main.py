@@ -73,6 +73,11 @@ def create_db():
     command_sql += "password TEXT, emoji TEXT, role TEXT)"
     cursor.execute(command_sql)
 
+    # Insertar el usuario administrador.
+    command_sql = "INSERT INTO users (username, password, emoji, role) "
+    command_sql += "VALUES (?, ?, ?, ?)"
+    cursor.execute(command_sql, ("agustincomolli", "admin", "🤪", "admin"))
+
     # Crear la tabla chats.
     command_sql = "CREATE TABLE chats (id INTEGER PRIMARY KEY, date DATETIME "
     command_sql += "user_id INTEGER, chat TEXT)"
@@ -93,8 +98,23 @@ def generate_secret_key():
     return secrets.token_hex(32)
 
 
+if os.path.exists("./data/chat.db"):
+    create_db()
+
 app = Flask(__name__, static_url_path="/static")
 app.secret_key = generate_secret_key()
+
+
+@app.route("/signup")
+def signup():
+    return redirect("./static/signup.html")
+
+
+@app.route("/")
+def index():
+    with open("./static/index.html", mode="r", encoding="UTF-8") as file:
+        page = file.read()
+    return page
 
 
 app.run(host="0.0.0.0", port=81)
