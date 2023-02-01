@@ -5,28 +5,31 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrarme</title>
-  <link rel="stylesheet" href="./css/style.css">
-  <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
+  <title>Chateame - Registrarme</title>
+  <link rel="stylesheet" href="./static/css/style.css">
+  <link rel="shortcut icon" href="./static/images/favicon.png" type="image/x-icon">
 </head>
 
 <body>
   <header>
-    <img src="./images/logo.png">
+    <img src="./static/images/logo.png">
     <h1>Registrarme 🙂</h1>
   </header>
   <main>
     <form method="post" action="/signup">
-      <p><label for="user">Usuario: </label><input type="text" name="user" id="user" required></p>
-      <p><label for="email">E-mail: </label><input type="email" name="email" id="email" required></p>
-      <p><label for="password">Contraseña: </label><input type="password" name="password" id="password" required></p>
-      <p>
-        <label for="emojis">Emoji: </label>
-        <select name="emojis" id="sel-emojis">{emojis}</select>
-      </p>
-      <p>
-      <p><input type="submit" value="Registrarme"> <input type="button" value="Cancelar" id="btn-cancel"></p>
-      </p>
+      <div class="container">
+        <p><label for="user">Usuario: </label><input type="text" name="user" id="user" required></p>
+        <p><label for="email">E-mail: </label><input type="email" name="email" id="email" required></p>
+        <p><label for="password">Contraseña: </label><input type="password" name="password" id="password" required></p>
+        <p>
+          <label for="emojis">Emoji: </label>
+          <select name="emojis" id="sel-emojis">{emojis}</select>
+        </p>
+        <p>
+          <input type="submit" value="Registrarme">
+          <input type="button" value="Cancelar" id="btn-cancel">
+        </p>
+      </div>
     </form>
   </main>
   <footer>
@@ -37,7 +40,7 @@
     </p>
   </footer>
 
-  <script src="./js/script.js"></script>
+  <script src="./static/js/script.js"></script>
 </body>
 
 </html>

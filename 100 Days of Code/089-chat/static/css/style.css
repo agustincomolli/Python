@@ -38,47 +38,62 @@ header img {
   margin-left: 15px;
 }
 
+header input[type="submit"] {
+  margin-right: 15px;
+  padding: 4px 10px;
+  height: 30px;
+  line-height: 50px;
+  text-align: center;
+}
+
 main {
   margin: 0 5em 0 5em;
   grid-area: main;
 }
 
-form {
+main form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top:2em;
+  margin-top: 2em;
 }
 
-form p {
-  margin-block: 0.5em;
+main form p {
+  margin-block: 0.6em;
 }
 
-form label {
+main form label {
   display: inline-block;
   width: 80px;
   margin-right: 10px;
   vertical-align: top;
 }
 
-form input[type="submit"] {
+main form input[type="submit"] {
   padding: 5px 20px;
 }
 
-form input[type="button"],
+main form input[type="button"],
 button {
   padding: 5px 20px;
   margin-left: 50px;
+  margin-top: 2em;
 }
 
-form input[type="date" ] {
+main form input[type="date"] {
   padding: 1px 2px;
   width: 169px;
   text-align: center;
 }
 
-form textarea {
+main form textarea {
   resize: none;
+}
+
+main form select {
+  padding: 1px 2px;
+  font-size: large;
+  margin-left: -3px;
 }
 
 h1,
@@ -106,6 +121,12 @@ h2 {
 
 #btn-login {
   margin-top: 2em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .message {
