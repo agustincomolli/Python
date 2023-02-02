@@ -20,7 +20,13 @@
   </header>
 
   <main>
-    {content}
+    <div class="chat-container">
+      <div class="chat">{content}</div>
+      <form method="post" action="/send" id="send-message">
+        <input type="text" name="message" id="txt-message">
+        <input type="submit" value="Enviar" id="btn-submit">
+      </form>
+    </div>
   </main>
 
   <footer>

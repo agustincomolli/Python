@@ -27,7 +27,6 @@ def is_valid_user(user_login: dict):
 
     if result != None and result[2] == user_login["password"]:
         valid = True
-        session["login"] = True
         session["id"] = result[0]
         session["name"] = result[1]
         session["emoji"] = result[3]
@@ -61,6 +60,26 @@ def get_emoji():
     ]
 
     return faces
+
+
+def get_chat_data():
+    """
+    Description: obtiene todos los mensajes de chat.
+    """
+
+    # Crear la conexión a la base de datos.
+    connection = sqlite3.connect("./data/chat.db")
+    # Crear el cursor a la base de datos.
+    cursor = connection.cursor()
+    # Ejecutar la consulta a la base de datos.
+    command_sql = "SELECT users.username, users.emoji, chats.*"
+    command_sql += "FROM users INNER JOIN chats ON users.id = chats.user_id"
+    cursor.execute(command_sql)
+    results = cursor.fetchall()
+    # Cerrar la conexión a la base de datos.
+    connection.close()
+
+    return results
 
 
 def add_chat_db(date: datetime, user_id: int, chat: str):
@@ -121,7 +140,7 @@ def create_db():
     cursor.execute(command_sql, ("agustincomolli", "admin", "🤪", "admin"))
 
     # Crear la tabla chats.
-    command_sql = "CREATE TABLE chats (id INTEGER PRIMARY KEY, date DATETIME "
+    command_sql = "CREATE TABLE chats (id INTEGER PRIMARY KEY, date DATETIME, "
     command_sql += "user_id INTEGER, chat TEXT)"
     cursor.execute(command_sql)
 
@@ -147,6 +166,41 @@ app = Flask(__name__, static_url_path="/static")
 app.secret_key = generate_secret_key()
 
 
+@app.route("/send", methods=["POST"])
+def send():
+    form = request.form
+
+    if form["message"] != "":
+        add_chat_db(datetime.now(), session["id"], form["message"])
+        return redirect("/")
+
+
+@app.route("/chat")
+def chat():
+    if not session.get("id"):
+        return redirect("/")
+
+    chat_data = get_chat_data()
+    chat =""
+
+    for record in chat_data:
+        date_message = datetime.strptime(record[3], "%Y-%m-%d %H:%M:%S.%f")
+        date_message = datetime.strftime(date_message, "%d/%m/%Y a las %H:%M")
+        message = "<div class='container-message'>"
+        message += f"<p class='user-message'>{record[1]} " 
+        message += f"<span class='username'>{record[0]}</span> dice: </p>"
+        message += f"<p class='date-message'>{date_message}</p>"
+        message += f"<p class='chat-message'>{record[5]}</p>"
+        message += "</div>"
+        chat += message
+
+    page = open_page("./static/chat.html")
+    page = page.replace("{h1}", f"Chateame - {session['emoji']}")
+    page = page.replace("{content}", chat)
+
+    return page
+
+
 @app.route("/logout")
 def logout():
     session.clear()
@@ -164,15 +218,15 @@ def login():
         page = page.replace("</form>", html_code)
 
         return page
-
-    page = open_page("./static/chat.html")
-    page = page.replace("{h1}", f"Chateame - {session['emoji']}")
-
-    return page
+    else:
+        return redirect("/chat")
 
 
 @app.route("/login-form")
 def login_form():
+    if session.get("id"):
+        return redirect("/chat")
+        
     return open_page("./static/login.html")
 
 
@@ -187,6 +241,9 @@ def signup():
 
 @app.route("/register")
 def register():
+    if session.get("id"):
+        return redirect("/chat")
+        
     page = open_page("./static/signup.html")
     html_code = ""
 
@@ -200,6 +257,9 @@ def register():
 
 @app.route("/")
 def index():
+    if session.get("id"):
+        return redirect("/chat")
+
     return open_page("./static/index.html")
 
 

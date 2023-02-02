@@ -51,46 +51,46 @@ main {
   grid-area: main;
 }
 
-main form {
+.standar-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 2em;
 }
 
-main form p {
+.standar-form p {
   margin-block: 0.6em;
 }
 
-main form label {
+.standar-form label {
   display: inline-block;
   width: 80px;
   margin-right: 10px;
   vertical-align: top;
 }
 
-main form input[type="submit"] {
+.standar-form input[type="submit"] {
   padding: 5px 20px;
 }
 
-main form input[type="button"],
+.standar-form input[type="button"],
 button {
   padding: 5px 20px;
   margin-left: 50px;
   margin-top: 2em;
 }
 
-main form input[type="date"] {
+.standar-form input[type="date"] {
   padding: 1px 2px;
   width: 169px;
   text-align: center;
 }
 
-main form textarea {
+.standar-form textarea {
   resize: none;
 }
 
-main form select {
+.standar-form select {
   padding: 1px 2px;
   font-size: large;
   margin-left: -3px;
@@ -121,6 +121,82 @@ h2 {
 
 #btn-login {
   margin-top: 2em;
+}
+
+#send-message {
+  width: 100%;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 1fr 80px;
+}
+
+#txt-message {
+  grid-column: 1;
+  height: 34px;
+  margin-right: 4px;
+  padding: 1px 4px;
+}
+
+#btn-submit {
+  grid-column: 2;
+  height: 40px;
+}
+
+.chat {
+  overflow-y: scroll;
+  height: 90%;
+  padding: 20px 10px 10px 10px;
+  border: var(--color-2) 2px solid;
+  grid-column-start: 1;
+  border-radius: 5px;
+}
+
+.chat-container {
+  margin: 20px 0;
+  display: grid;
+  grid-template-rows: auto 40px;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.container-message {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-items: end;
+}
+
+.user-message,
+.date-message {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.user-message {
+  grid-column: 1;
+  margin-left: 10px;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.date-message {
+  grid-column: 2;
+  font-size: 8pt;
+  font-style: italic;
+  text-align: right;
+  margin-right: 20px;
+}
+
+.chat-message {
+  display: inline;
+  grid-row: 2;
+  grid-column: span 2;
+  margin-left: 20px;
+  margin-block-start: 0.5em;
+  margin-block-end: 1.5em;
 }
 
 .container {
