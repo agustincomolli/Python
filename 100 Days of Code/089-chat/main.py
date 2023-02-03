@@ -1,8 +1,10 @@
 from flask import Flask, request, redirect, session
 from datetime import datetime
+from random import randint
 import os
 import sqlite3
 import secrets
+import hashlib
 
 
 def is_valid_user(user_login: dict):
@@ -25,12 +27,16 @@ def is_valid_user(user_login: dict):
 
     valid = False
 
-    if result != None and result[3] == user_login["password"]:
-        valid = True
-        session["id"] = result[0]
-        session["name"] = result[1]
-        session["emoji"] = result[4]
-        session["role"] = result[5]
+    if result != None:
+        salt = result[6]
+        password = f"{user_login['password']}{salt}"
+        hashed_password = hashlib.sha256(password.encode()).digest()
+        if result[3] == hashed_password:
+            valid = True
+            session["id"] = result[0]
+            session["name"] = result[1]
+            session["emoji"] = result[4]
+            session["role"] = result[5]
 
     return valid
 
@@ -130,9 +136,13 @@ def add_user_db(username: str, email: str, password: str, emoji: str, role: str)
     # Crear el cursor a la base de datos.
     cursor = connection.cursor()
     # Insertar el nuevo usuario.
-    command_sql = "INSERT INTO users (username, email, password, emoji, role) "
-    command_sql += "VALUES (?, ?, ?, ?, ?)"
-    cursor.execute(command_sql, (username, email, password, emoji, role,))
+    salt = randint(1000, 9999)
+    password = f"{password}{salt}"
+    hashed_password = hashlib.sha256(password.encode()).digest()
+    command_sql = "INSERT INTO users (username, email, password, emoji, role, salt) "
+    command_sql += "VALUES (?, ?, ?, ?, ?, ?)"
+    cursor.execute(command_sql, (username, email,
+                   hashed_password, emoji, role, salt,))
     # Guardar los cambios.
     connection.commit()
     # Cerrar la conexión a la base de datos.
@@ -151,14 +161,8 @@ def create_db():
 
     # Crear la tabla usuarios.
     command_sql = "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, "
-    command_sql += "email TEXT, password TEXT, emoji TEXT, role TEXT)"
+    command_sql += "email TEXT, password BLOB, emoji TEXT, role TEXT, salt INTEGER)"
     cursor.execute(command_sql)
-
-    # Insertar el usuario administrador.
-    command_sql = "INSERT INTO users (username, email, password, emoji, role) "
-    command_sql += "VALUES (?, ?, ?, ?, ?)"
-    cursor.execute(command_sql, ("agustincomolli",
-                   "agustincomolli@gmail.com", "admin", "🤪", "admin"))
 
     # Crear la tabla chats.
     command_sql = "CREATE TABLE chats (id INTEGER PRIMARY KEY, date DATETIME, "
@@ -169,6 +173,10 @@ def create_db():
     connection.commit()
     # Cerrar la conexión a la base de datos.
     connection.close()
+
+    # Insertar el usuario administrador.
+    add_user_db("agustincomolli", "agustincomolli@gmail.com",
+                "admin", "🤪", "admin")
 
 
 def generate_secret_key():
@@ -204,7 +212,7 @@ def send():
 
     if form["message"] != "":
         add_chat_db(datetime.now(), session["id"], form["message"])
-    
+
     return redirect("/chat")
 
 
