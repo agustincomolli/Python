@@ -25,11 +25,12 @@ def is_valid_user(user_login: dict):
 
     valid = False
 
-    if result != None and result[2] == user_login["password"]:
+    if result != None and result[3] == user_login["password"]:
         valid = True
         session["id"] = result[0]
         session["name"] = result[1]
-        session["emoji"] = result[3]
+        session["emoji"] = result[4]
+        session["role"] = result[5]
 
     return valid
 
@@ -82,6 +83,25 @@ def get_chat_data():
     return results
 
 
+def delete_message_db(id: str):
+    """
+    Description: Elimina un mensaje de chat
+    Parameters:  - id: es el id del mensaje en formato string.
+    """
+
+    # Crear la conexión a la base de datos.
+    connection = sqlite3.connect("./data/chat.db")
+    # Crear el cursor a la base de datos.
+    cursor = connection.cursor()
+    # Ejecutar comando de eliminación.
+    command_sql = "DELETE FROM chats WHERE id = ?"
+    cursor.execute(command_sql, (id,))
+    # Guardar los cambios.
+    connection.commit()
+    # Cerrar la conexión a la base de datos.
+    connection.close()
+
+
 def add_chat_db(date: datetime, user_id: int, chat: str):
     """
     Description: Agrega una entrada al chat.
@@ -100,7 +120,7 @@ def add_chat_db(date: datetime, user_id: int, chat: str):
     connection.close()
 
 
-def add_user_db(username: str, password: str, emoji: str, role: str):
+def add_user_db(username: str, email: str, password: str, emoji: str, role: str):
     """
     Description: Agrega un nuevo usario a la base de datos.
     """
@@ -110,9 +130,9 @@ def add_user_db(username: str, password: str, emoji: str, role: str):
     # Crear el cursor a la base de datos.
     cursor = connection.cursor()
     # Insertar el nuevo usuario.
-    command_sql = "INSERT INTO users (username, password, emoji, role) "
-    command_sql += "VALUES (?, ?, ?, ?)"
-    cursor.execute(command_sql, (username, password, emoji, role,))
+    command_sql = "INSERT INTO users (username, email, password, emoji, role) "
+    command_sql += "VALUES (?, ?, ?, ?, ?)"
+    cursor.execute(command_sql, (username, email, password, emoji, role,))
     # Guardar los cambios.
     connection.commit()
     # Cerrar la conexión a la base de datos.
@@ -131,13 +151,14 @@ def create_db():
 
     # Crear la tabla usuarios.
     command_sql = "CREATE TABLE users (id INTEGER PRIMARY KEY, username TEXT, "
-    command_sql += "password TEXT, emoji TEXT, role TEXT)"
+    command_sql += "email TEXT, password TEXT, emoji TEXT, role TEXT)"
     cursor.execute(command_sql)
 
     # Insertar el usuario administrador.
-    command_sql = "INSERT INTO users (username, password, emoji, role) "
-    command_sql += "VALUES (?, ?, ?, ?)"
-    cursor.execute(command_sql, ("agustincomolli", "admin", "🤪", "admin"))
+    command_sql = "INSERT INTO users (username, email, password, emoji, role) "
+    command_sql += "VALUES (?, ?, ?, ?, ?)"
+    cursor.execute(command_sql, ("agustincomolli",
+                   "agustincomolli@gmail.com", "admin", "🤪", "admin"))
 
     # Crear la tabla chats.
     command_sql = "CREATE TABLE chats (id INTEGER PRIMARY KEY, date DATETIME, "
@@ -166,13 +187,25 @@ app = Flask(__name__, static_url_path="/static")
 app.secret_key = generate_secret_key()
 
 
+@app.route("/delete", methods=["GET"])
+def delete():
+    arguments = request.args
+
+    if not arguments.get("id") or not arguments["id"].isnumeric():
+        return redirect("/")
+
+    delete_message_db(arguments["id"])
+    return redirect("/chat")
+
+
 @app.route("/send", methods=["POST"])
 def send():
     form = request.form
 
     if form["message"] != "":
         add_chat_db(datetime.now(), session["id"], form["message"])
-        return redirect("/")
+    
+    return redirect("/chat")
 
 
 @app.route("/chat")
@@ -181,15 +214,19 @@ def chat():
         return redirect("/")
 
     chat_data = get_chat_data()
-    chat =""
+    chat = ""
 
     for record in chat_data:
         date_message = datetime.strptime(record[3], "%Y-%m-%d %H:%M:%S.%f")
         date_message = datetime.strftime(date_message, "%d/%m/%Y a las %H:%M")
         message = "<div class='container-message'>"
-        message += f"<p class='user-message'>{record[1]} " 
+        message += f"<p class='user-message'>{record[1]} "
         message += f"<span class='username'>{record[0]}</span> dice: </p>"
-        message += f"<p class='date-message'>{date_message}</p>"
+        message += f"<p class='date-message'>{date_message}"
+        if session["role"] == "admin":
+            message += f"<a href='/delete?id={record[2]}'> ❌</a>"
+        else:
+            message += "</p>"
         message += f"<p class='chat-message'>{record[5]}</p>"
         message += "</div>"
         chat += message
@@ -209,6 +246,9 @@ def logout():
 
 @app.route("/login", methods=["POST"])
 def login():
+    if session.get("id"):
+        return redirect("/chat")
+
     form = request.form
 
     if not is_valid_user(form):
@@ -226,15 +266,19 @@ def login():
 def login_form():
     if session.get("id"):
         return redirect("/chat")
-        
+
     return open_page("./static/login.html")
 
 
 @app.route("/signup", methods=["POST"])
 def signup():
+    if session.get("id"):
+        return redirect("/chat")
+
     form = request.form
 
-    add_user_db(form["user"], form["password"], form["emoji"], "user")
+    add_user_db(form["user"], form["email"],
+                form["password"], form["emoji"], "user")
 
     return redirect("/")
 
@@ -243,7 +287,7 @@ def signup():
 def register():
     if session.get("id"):
         return redirect("/chat")
-        
+
     page = open_page("./static/signup.html")
     html_code = ""
 
