@@ -33,6 +33,8 @@ def get_tracks(artist:str):
     response = requests.post(url, data=data, auth=auth)
     access_token = response.json()["access_token"]
 
+    # print(access_token)
+
     endpoint_url = "https://api.spotify.com/v1/search"
     headers = {"Authorization": f"Bearer {access_token}"}
     search = f"?q=artist%3D{artist}&type=track&market=ES&limit=10"

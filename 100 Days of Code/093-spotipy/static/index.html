@@ -7,22 +7,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>SpotiPy</title>
 	<link rel="stylesheet" href="./static/css/style.css">
-	<link rel="shortcut icon" href="./static/images/favicon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="./static/images/logo.png" type="image/x-icon">
 </head>
 
 <body>
 	<header>
-		<img src="./static/images/logo2.png">
+		<img src="./static/images/logo.png">
 		<h1>Bienvenido a SpotiPy</h1>
 	</header>
 	<main>
-		<form class="standar-form">
-			<p>Bienvenido a nuestra página web. Aquí podrás iniciar sesión o registrarte para acceder a funciones
-				exclusivas.
+		<form class="standar-form" method="post" action="/search">
+			<p>Ingresa un año y te mostraré 10 canciones de esa fecha.</p>
+			<p>
+				<label for="year">Año: </label>
+				<input type="number" name="year" id="num-year" min="1900" max="2023" value="{year}">
+				<input type="submit" value="🔍 Buscar">
 			</p>
-			<p><input type="submit" value="🔑 Iniciar sesión" formaction="/login-form" id="btn-login"></p>
-			<p><input type="submit" value="🙂 Registrarme" formaction="/register" id="btn-signup"></p>
 		</form>
+		<div name="track-list"></div>
 	</main>
 	<footer>
 		<h3>Contacto</h3>
