@@ -23,7 +23,7 @@ def get_client_secret():
         return file.readline().strip()
 
 
-def get_tracks(year: str):
+def get_tracks(year: str, offset: int = 0):
     """
     Description: Realiza una búsqueda en la base de datos de Spotify según
                  el año.
@@ -42,7 +42,7 @@ def get_tracks(year: str):
 
     endpoint_url = "https://api.spotify.com/v1/search"
     headers = {"Authorization": f"Bearer {access_token}"}
-    search = f"?q=year%3A{year}&type=track&market=ES&limit=10"
+    search = f"?q=year%3A{year}&type=track&limit=10&offset={offset}"
     full_url = f"{endpoint_url}{search}"
 
     response = requests.get(full_url, headers=headers)
@@ -64,17 +64,36 @@ def open_page(file_name: str):
 
 
 def generate_html_tracks(tracks: dict):
+    """
+    Description:    Genera el código HTML que contiene el nombre de la
+                    canción, el artista y una vista previa de la misma.
+    Parameters:     - tracks: un diccionario generado por la API de Spotify
+    Return:         - str: con el HTML generado.
+    """
+    
     html = "<div class='track-list'>"
 
-    for track in tracks:
-        track_name = track["name"]
-        artist = track["album"]["artists"][0]["name"]
-        url = track["preview_url"]
-        html += f"<h4>{track_name} por {artist}</h4>"
-        html += "<audio controls>"
-        html += f"<source src='{url}' type='audio/mpeg'>"
-        html += "</audio>"
-        html += "<hr>"
+    if len(tracks) == 0:
+        html += "<h3>No se han encontrado canciones 😢</h3>"
+    else:
+        for track in tracks:
+            track_name = track["name"]
+            artist = track["album"]["artists"][0]["name"]
+            url = track["preview_url"]
+            html += f"<h4>{track_name} por {artist}</h4>"
+            html += "<audio controls>"
+            html += f"<source src='{url}' type='audio/mpeg'>"
+            html += "</audio>"
+            html += "<hr>"
+        
+        # Botones Anterior y Siguiente.
+        html += "<form class='standar-form' method='post'>"
+        html += "<p>"
+        html += "<input type='submit' value='⬅️ Anterior' "
+        html += "formaction='/previous' class='prev_next'>"
+        html += "<input type='submit' value='Siguente ➡️' formaction='/next'>"
+        html += "</p>"
+        html += "</form>"
 
     html += "</div>"
     return html
@@ -90,10 +109,9 @@ def search():
     tracks_dict = get_tracks(year)
     html_code = generate_html_tracks(tracks_dict)
 
-    print(html_code)
+    # print("\n", html_code, "\n")
 
     page = open_page("./static/index.html")
-    year = str(datetime.now().year)
     page = page.replace("{year}", year)
     page = page.replace("<div name=\"track-list\"></div>", html_code)
 
