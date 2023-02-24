@@ -1,6 +1,6 @@
 import requests
 from requests.auth import HTTPBasicAuth
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, url_for
 from datetime import datetime
 
 
@@ -70,12 +70,13 @@ def generate_html_tracks(tracks: dict):
     Parameters:     - tracks: un diccionario generado por la API de Spotify
     Return:         - str: con el HTML generado.
     """
-    
+
     html = "<div class='track-list'>"
 
-    if len(tracks) == 0:
+    if not tracks:
         html += "<h3>No se han encontrado canciones 😢</h3>"
     else:
+        # Generar el html con las canciones encontradas.
         for track in tracks:
             track_name = track["name"]
             artist = track["album"]["artists"][0]["name"]
@@ -85,15 +86,6 @@ def generate_html_tracks(tracks: dict):
             html += f"<source src='{url}' type='audio/mpeg'>"
             html += "</audio>"
             html += "<hr>"
-        
-        # Botones Anterior y Siguiente.
-        html += "<form class='standar-form' method='post'>"
-        html += "<p>"
-        html += "<input type='submit' value='⬅️ Anterior' "
-        html += "formaction='/previous' class='prev_next'>"
-        html += "<input type='submit' value='Siguente ➡️' formaction='/next'>"
-        html += "</p>"
-        html += "</form>"
 
     html += "</div>"
     return html
@@ -109,8 +101,6 @@ def search():
     tracks_dict = get_tracks(year)
     html_code = generate_html_tracks(tracks_dict)
 
-    # print("\n", html_code, "\n")
-
     page = open_page("./static/index.html")
     page = page.replace("{year}", year)
     page = page.replace("<div name=\"track-list\"></div>", html_code)
@@ -120,9 +110,10 @@ def search():
 
 @app.route("/")
 def index():
+    year = str(datetime.now().year)
     page = open_page("./static/index.html")
-    actual_year = str(datetime.now().year)
-    page = page.replace("{year}", actual_year)
+    
+    page = page.replace("{year}", year)
 
     return page
 
