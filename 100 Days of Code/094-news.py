@@ -1,5 +1,6 @@
 from mylib import color_me
 import requests
+import openai
 
 
 def get_openai_api_key():
