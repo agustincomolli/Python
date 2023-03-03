@@ -47,9 +47,9 @@ def sumarize_me(text: str):
     openai.api_key = openai_secrets["api_key"]
     openai.Model.list()
 
-    prompt = f"Summarize: {text} in 3 paragraphs"
+    prompt = f"Summarize in 3 paragraphs the text below: {text} "
     response = openai.Completion.create(
-        model="text-davinci-002", prompt=prompt, temperature=0, max_tokens=6)
+        model="text-davinci-002", prompt=prompt, temperature=0, max_tokens=150)
 
     return response["choices"][0]["text"].strip()
 
@@ -60,22 +60,25 @@ def generate_text_to_sumarize(url: str):
                  que se usará para realizar el resumen.
     """
 
-    article = scraping_me(url, "div", {"class": "mw-parser-output"})
-    # Usar el segundo resultado [1] porque el primero no trae nada en este caso.
-    article = article[1]
+    results = scraping_me(url, "div", {"class": "mw-parser-output"})
     # Extraer sólo los párrafos.
-    article = article.find_all("p")
-    # Preparar el texto para resumir.
-    article_text = ""
-    for paragraph in article:
-        article_text += paragraph.text
+    for result in results:
+        article = result.find_all("p")
+        # Preparar el texto para resumir.
+        article_text = ""
+        for paragraph in article:
+            article_text += paragraph.text
 
     return article_text
 
 
 def get_references(url: str):
+    """
+    Description: Obtiene las referencias de un artículo de Wikipedia.
+    """
+
     references = scraping_me(url, "ol", {"class": "references"})[0]
-    references = reference.find_all("li")
+    references = references.find_all("li")
     result = ""
     for index, line in enumerate(references):
         # Reemplazar el caracter de inicio de la referencia "^ " con nada por
@@ -88,12 +91,10 @@ def get_references(url: str):
 
 url = "https://en.wikipedia.org/wiki/Hair_loss"
 article_content = generate_text_to_sumarize(url)
-# sumary = sumarize_me()
+# sumary = sumarize_me(article_content)
 
 clear_screen()
 print(color_me("Resumen de Wikipedia", "yellow"))
 # print(sumary, "\n")
 print(color_me("Referencias:", "blue"))
-reference = scraping_me(url, "ol", {"class": "references"})[0]
-reference = reference.find_all("li")
 print(get_references(url))
