@@ -154,7 +154,7 @@ def get_events():
     return events_dict
 
 
-old_events = {}
+old_events = {} # Guarda los eventos que han sido enviados por correo.
 
 # Programar tarea para enviar correo electrónico cada hora
 schedule.every(6).hours.do(send_mail)
