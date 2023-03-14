@@ -14,7 +14,7 @@ def get_credentials():
     Description: Obtiene las credenciales de Gmail.
     """
 
-    username = ""
+    username = "user@gmail.com"
     password = ""
     
     return {"username": username, "password": password}
@@ -35,6 +35,8 @@ def send_mail():
 
     credentials = get_credentials()
     quote_of_the_day = get_random_quote()
+
+    print(f"\nEnviando cita: \"{quote_of_the_day}\"\n")
 
     try:
         connection.login(user=credentials["username"],
@@ -74,10 +76,11 @@ def get_random_quote():
     return random.choice(quotes).strip()
 
 
+print(color_me("Cita del día\n" + "=" * 12, "yellow"))
 # Programar tarea para enviar correo electrónico cada hora
-schedule.every().day.do(send_mail)
+schedule.every(24).hours.do(send_mail)
 
 while True:
     schedule.run_pending()
     # Esperar una hora.
-    time.sleep(1)
+    time.sleep(3600)
