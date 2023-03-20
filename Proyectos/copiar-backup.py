@@ -1,6 +1,6 @@
 import os
 import shutil
-from datetime import datetime, timedelta
+import datetime
 from mylib import *
 
 
@@ -27,11 +27,11 @@ def get_week_month():
     # Obtiene la fecha del primer día del mes actual
     first_day_of_month = datetime.date(year, month, 1)
 
-    # Obtiene el día de la semana del primer día del mes actual 
+    # Obtiene el día de la semana del primer día del mes actual
     # (0=lunes, 1=martes, ..., 6=domingo)
     first_day_of_month_weekday = first_day_of_month.weekday()
 
-    # Si el primer día del mes es un domingo, ajusta la cantidad de días 
+    # Si el primer día del mes es un domingo, ajusta la cantidad de días
     # considerados para la primera semana del mes
     if first_day_of_month_weekday == 6:
         first_day_of_month_weekday = -1
@@ -76,7 +76,7 @@ def get_month_week_day():
     }
 
     # Obtenemos la fecha actual
-    current_date = datetime.now()
+    current_date = datetime.datetime.now()
 
     # Obtenemos el número de semana correspondiente al mes
     week_month = get_week_month()
@@ -114,7 +114,9 @@ def copy_backup(source_path: str, destination_path: str):
     file_source_path = os.path.join(source_path, file_name)
     file_destination_path = os.path.join(destination_path, file_name)
 
-    print(f"\nCopiando {file_source_path}...")
+    print(
+        f"\nCopiando \"{color_me(file_name, 'green')}\"  👉  "
+        f"\"{color_me(destination_path, 'magenta')}\"...")
     try:
         shutil.copy(file_source_path, file_destination_path)
     except Exception as error:
@@ -130,8 +132,8 @@ def check_date():
                  backup en el servidor.
     """
 
-    current_date = datetime.now()
-    reminder_date = datetime(current_date.year, 1, 10)
+    current_date = datetime.datetime.now()
+    reminder_date = datetime.datetime(current_date.year, 1, 10)
     if current_date < reminder_date:
         message = "\n📆 RECORDATORIO: Agregar la carpeta de liquidaciones y "
         message += "del ejercicio nuevo\n"
@@ -145,9 +147,9 @@ print(color_me("*** Copia de Backups 💾 ***", "yellow"))
 print(color_me(f"\nBackup de SIFIM:\n{'=' * 17}", "blue"))
 # Recordar si cambia el ejercicio de SIFIM.
 check_date()
-copy_backup("//servidor/backups", "e:/Backups SIFIM")
+copy_backup(r"\\servidor\backups", r"E:\Backups SIFIM")
 
 print(color_me(f"Backup de RAFAM:\n{'=' * 17}", "blue"))
-copy_backup("//SRV-RAFAM-01/RafamBackup", "e:/Backups RAFAM")
+copy_backup(r"\\SRV-RAFAM-01\RafamBackup", r"E:\Backups RAFAM")
 
 press_enter_to_continue()
