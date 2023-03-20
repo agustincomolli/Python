@@ -4,6 +4,44 @@ from datetime import datetime, timedelta
 from mylib import *
 
 
+def get_week_month():
+    """
+    Description: Devuelve el número de la semana que corresponde a la fecha 
+                 actual.
+                 La fórmula calcula el día de la semana del primer día del mes 
+                 y ajusta la cantidad de días a considerar para la primera 
+                 semana del mes. En este caso, si el primer día del mes es un 
+                 domingo, entonces se resta 1 a la cantidad de días 
+                 considerados para la primera semana. Luego, se calcula el 
+                 número de semanas completas que han pasado hasta la fecha 
+                 actual y se le suma uno para obtener el número de la semana 
+                 correspondiente al mes actual.
+    """
+
+    # Obtiene la fecha actual
+    today = datetime.date.today()
+
+    # Obtiene el año, mes y día de la fecha actual
+    year, month, day = today.year, today.month, today.day
+
+    # Obtiene la fecha del primer día del mes actual
+    first_day_of_month = datetime.date(year, month, 1)
+
+    # Obtiene el día de la semana del primer día del mes actual 
+    # (0=lunes, 1=martes, ..., 6=domingo)
+    first_day_of_month_weekday = first_day_of_month.weekday()
+
+    # Si el primer día del mes es un domingo, ajusta la cantidad de días 
+    # considerados para la primera semana del mes
+    if first_day_of_month_weekday == 6:
+        first_day_of_month_weekday = -1
+
+    # Calcula el número de la semana del mes correspondiente a la fecha actual
+    week_of_month = (day + first_day_of_month_weekday) // 7 + 1
+
+    return week_of_month
+
+
 def get_month_week_day():
     """
     Description: Obtiene el nombre del mes actual, el número de la semana
@@ -40,12 +78,8 @@ def get_month_week_day():
     # Obtenemos la fecha actual
     current_date = datetime.now()
 
-    # Obtenemos el primer día del mes actual
-    first_day_month = datetime(current_date.year, current_date.month, 1)
-
     # Obtenemos el número de semana correspondiente al mes
-    week_month = ((current_date - first_day_month).days // 7) + 1
-
+    week_month = get_week_month()
     # Creamos los nombres de las carpetas según la fecha actual
     month = months_spanish[current_date.strftime('%B')]
     week = f'{week_month}° Sem'
