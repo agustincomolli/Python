@@ -62,13 +62,10 @@ def validate_move(move_input: str):
     try:
         move = int(move_input)
         if move < 1 or move > 9:
-            raise ValueError("Debe ingresar un número entre 1 y 9.")
+            raise ValueError
         return move
-    except ValueError as error:
-        if str(error) == "Debe ingresar un número entre 1 y 9.":
-            raise ValueError(str(error))
-        else:
-            raise ValueError("Debe ingresar un número entero")
+    except ValueError:
+        raise ValueError("Debe ingresar un número entre 1 y 9.")
 
 
 def enter_move(board: list):
@@ -79,24 +76,18 @@ def enter_move(board: list):
     """
     free_fields = get_free_positions(board)
     positions = get_positions(board)
-    while True:
-        move_input = input_color("Ingresa tu movimiento: ", "green")
-        try:
-            move = validate_move(move_input)
-            # Verificar que la posición elegida esté libre.
-            if positions[move-1] in free_fields:
-                break
-            else:
-                raise ValueError("¡Ops! Posición ocupada 🤔")
-        except ValueError as e:
-            show_error(str(e))
-            press_enter_to_continue()
-        display_board(board)
 
-
-    # Actualizar el tablero ocupando la posición elegida.
-    row, col = positions[move-1]
-    board[row][col] = color_me("O", "blue")
+    move_input = input_color("Ingresa tu movimiento: ", "green")
+    # Verificar que la entrada del usuario sea un número entre 1 y 9.
+    move = validate_move(move_input)
+    # Verificar que la posición elegida esté libre.
+    if positions[move-1] in free_fields:
+        # Actualizar el tablero ocupando la posición elegida.
+        row, col = positions[move-1]
+        board[row][col] = color_me("O", "blue")
+        return
+    else:
+        raise ValueError("¡Ops! Posición ocupada 🤔")
 
 
 def victory_for(board: list, sign: str):
@@ -158,22 +149,34 @@ while True:
     # Dibujar el tablero.
     display_board(board)
 
-    # Chequear si hay una victoria del jugador, del oponente o si hay empate.
-    # En caso que ocurra una de estas tres opciones salir del juego.
+    try:
+        # El jugador ingresa su movimiento.
+        enter_move(board)
+    except ValueError as error:
+        show_error(str(error))
+        press_enter_to_continue()
+        continue
+    
+    # Chequear si hay una victoria del jugador.
+    # En caso que ocurra salir del juego.
     if victory_for(board, player_sign):
-        print(color_me("\n¡Enhorabuena, has ganado la partida! 🥳\n", "magenta"))
-        press_enter_to_continue()
-        break
-    elif victory_for(board, machine_sign):
-        print(color_me("Oh no, has perdido. Mejor suerte para la próxima. 😭", "magenta"))
-        press_enter_to_continue()
-        break
-    elif len(get_free_positions(board)) == 0:
-        print(color_me("¡Empate! Intentalo de nuevo.🤝", "magenta"))
-        press_enter_to_continue()
+        message = color_me("\n¡Enhorabuena, has ganado la partida! 🥳\n", "magenta")
         break
     
-    # El jugador ingresa su movimiento.
-    enter_move(board)
     # La máquina hace su movimiento.
     draw_move(board)
+    
+    # Chequear si hay una victoria de la máquina o si hay empate.
+    # En caso que ocurra salir del juego.    
+    if victory_for(board, machine_sign):
+        message = "Oh no, has perdido. Mejor suerte para la próxima. 😭"
+        break
+    elif len(get_free_positions(board)) == 0:
+        message = "¡Empate! Intentalo de nuevo.🤝"
+        break
+
+
+# Dibujar el tablero.
+display_board(board)
+print(color_me(message, "magenta"))
+press_enter_to_continue()
