@@ -13,74 +13,105 @@ colors = {
 }
 
 
-def get_color_code(color):
+def get_color_code(color: str) -> str:
     """
-        DESCRIPTION: Devuelve el código de color ANSI para el color especificado.
-        PARAMETERS:
-                    - color: El nombre del color (por ejemplo, "red", "green", etc.)
-        RETURNS:    El código de color ANSI para el color especificado, o el código
-                    de color predeterminado si el color no se reconoce.
+    Devuelve el código de color ANSI para el color especificado.
+
+    Args:
+        color (str): El nombre del color (por ejemplo, "red", "green", etc.)
+
+    Returns:    El código de color ANSI para el color especificado, o el código
+                de color predeterminado si el color no se reconoce.
+
     """
     return colors.get(color, colors["default"])
 
 
-def color_me(text, color=""):
+def color_me(text: str, color: str = "") -> str:
     """
-        DESCRIPTION: Devuelve el texto especificado con el código de color 
-                     ANSI especificado.
-        PARAMETERS:
-                    - text: El texto a colorear.
-                    - color: El nombre del color a usar (por ejemplo, "red", 
-                    "green", etc.)
-        RETURNS:    El texto especificado con el código de color ANSI especificado.
+    Devuelve el texto especificado con el código de color ANSI especificado.
+
+    Args:
+        text (str):  El texto a colorear.
+        color (str): El nombre del color a usar (green, red, blue, yellow, 
+                     cyan, magenta)
+
+    Returns:    El texto especificado con el código de color ANSI especificado.
+
     """
     color_code = get_color_code(color)
+
     return color_code + text + colors["default"]
 
 
-def input_color(message, color_input=""):
+def input_color(message: str, color_input: str = "") -> str:
     """
-        DESCRIPTION: Muestra un mensaje al usuario con un mensaje coloreado y
-                     acepta la entrada del usuario con una solicitud coloreada.
-        PARAMETERS:
-                    - message: El mensaje a mostrar al usuario.
-                    - color_input: El nombre del color a usar para la solicitud
-                      de entrada (por ejemplo, "red", "green", etc.)
-        RETURNS:    La entrada del usuario.
+    Muestra un mensaje al usuario con un mensaje coloreado y acepta la entrada 
+    del usuario con una solicitud coloreada.
+
+    Args:
+        message (str):     El mensaje a mostrar al usuario.
+        color_input (str): El nombre del color a usar para la solicitud
+                           de entrada (por ejemplo, "red", "green", etc.)
+
+    Returns:    La entrada del usuario.
+
     """
     color_code = get_color_code(color_input)
     value = input(message + color_code)
     print(colors["default"], end="")  # Reset the color to the default
+
     return value
 
 
 def clear_screen():
     """
-        DESCRIPTION: Limpia la pantalla de acuerdo al sistema operativo.
-                     posix = Linux or MAC
+    Limpia la pantalla de acuerdo al sistema operativo.
+
     """
+
+    # posix = Linux or MAC
     if os.name == "posix":
         os.system("clear")
     else:
         os.system("cls")
 
 
+def get_terminal_size() -> tuple:
+    """
+    Devuelve las medidas de la terminal donde se está ejecutando el programa.
+
+    Returns:
+        tuple: ancho y alto de la terminal.
+
+    """
+    size = os.get_terminal_size()
+    width = size.columns
+    height = size.lines
+
+    return width, height
+
+
 def press_enter_to_continue():
     """
-        DESCRIPTION: Muestra un mensaje que solicita al usuario que presione 
-                     "Enter" para continuar.
+    Muestra un mensaje que solicita al usuario que presione "Enter" para 
+    continuar.
+
     """
     input("Presione " + color_me("ENTER", "yellow") + " para continuar...")
 
 
-def choose_option(title: str, options: list, color_input=""):
+def choose_option(title: str, options: list, color_input: str = "") -> int:
     """
-    DESCRIPTION: Muestra un menú con las opciones especificadas y solicita al 
+    Muestra un menú con las opciones especificadas y solicita al 
                  usuario que elija una opción.
-    PARAMETERS:
-                - title: El título del menú
-                - options: Una lista de opciones a mostrar en el menú.
-    RETURNS:    La opción seleccionada por el usuario.
+
+    Args:
+        title (str):    El título del menú
+        options (str):  Una lista de opciones a mostrar en el menú.
+
+    Returns:    La opción seleccionada por el usuario.
+
     """
     while True:
         clear_screen()
@@ -103,24 +134,31 @@ def choose_option(title: str, options: list, color_input=""):
             press_enter_to_continue()
 
 
-def show_error(message):
+def show_error(message: str):
     """
-    DESCRIPTION: Muestra un mensaje de error de manera más visual.
-    PARAMETERS:
-                - message: Mensaje de error a mostrar.
+    Muestra un mensaje de error de manera más visual.
+
+    Args:
+        message (str): Mensaje de error a mostrar.
+
     """
+
     print(color_me("ERROR: ", "red") + message)
 
 
-def warning(message):
+def warning(message: str) -> bool:
     """
-    DESCRIPTION: Muestra un mensaje de advertencia al usuario y solicita 
-                 una respuesta afirmativa o negativa.
-    PARAMETERS:
-                - message: Mensaje de advertencia a mostrar.
-    RETURNS:    True si el usuario responde afirmativamente, False en caso 
-                contrario.
+    Muestra un mensaje de advertencia al usuario y solicita una respuesta 
+    afirmativa o negativa.
+
+    Args:
+        message (str): Mensaje de advertencia a mostrar.
+
+    Returns: 
+        bool: True si el usuario responde afirmativamente, False en caso contrario.
+
     """
+
     while True:
         response = input(f"{color_me(message, 'yellow')}\n" +
                          "¿Desea continuar? (s/n) ").lower()
@@ -130,15 +168,19 @@ def warning(message):
             return False
 
 
-def confirm(message):
+def confirm(message: str) -> bool:
     """
-    DESCRIPTION: Muestra un mensaje de confirmación al usuario y solicita una 
-                 respuesta afirmativa o negativa.
-    PARAMETERS:
-                - message: Mensaje de confirmación a mostrar.
-    RETURNS:    True si el usuario responde afirmativamente, False en caso 
-                contrario.
+    Muestra un mensaje de confirmación al usuario y solicita una respuesta 
+    afirmativa o negativa.
+
+    Args:
+        message (str): Mensaje de confirmación a mostrar.
+
+    Returns:    
+        bool: True si el usuario responde afirmativamente, False en caso contrario.
+
     """
+
     while True:
         response = input(f"{message} (s/n) ").lower()
         if response == "s":
