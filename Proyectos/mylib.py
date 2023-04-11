@@ -1,3 +1,5 @@
+#!/usr/bin/env/ python3
+
 import os
 
 # Diccionario que contiene los códigos de colores ANSI y sus nombres
