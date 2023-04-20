@@ -38,11 +38,15 @@ def print_number(number:str):
     # Convertir el número en una lista
     number_list = [int(digit) for digit in number]
 
-    print()
+    print() # Dejar un renglón en blanco.
 
+    # Recorrer las filas que forman un número.
     for row in range(5):
         line = ""
+        # Iterar sobre la cantidad de números ingresados
         for digit in number_list:
+            # Crear una cadena concatenada con la fila que forman cada uno de
+            # los números ingresados.
             line += digits[digit][row] + " "
         print(line)
 
