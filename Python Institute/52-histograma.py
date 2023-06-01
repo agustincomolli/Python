@@ -46,5 +46,7 @@ def make_histogram(file_name:str):
 file = input("Ingrese el nombre del archivo: ")
 
 histogram = make_histogram(file)
+ordered = sorted(histogram.keys(), key=lambda x: histogram[x], reverse=True)
 
-print(histogram)
+for letter in ordered:
+    print(f"{letter} -> {histogram[letter]}")
