@@ -1,0 +1,4 @@
+¡Hola, bienvenido a Python!
+Este es un archivo de texto.
+Esta es una nueva línea de texto.
+Aquí hay otra línea nueva para completar.
