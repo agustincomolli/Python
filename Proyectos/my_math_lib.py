@@ -11,17 +11,34 @@ def calcular_area_circulo(radio):
     return 3.14 * radio * radio
 
 
-def convertir_celsius_a_fahrenheit(grados_celsius):
+def celsius_to_fahrenheit(celsius_degrees):
     """
     Convierte grados Celsius a Fahrenheit.
 
     Args:
-    grados_celsius (float): grados Celsius a convertir.
+    celsius_degrees (float): grados Celsius a convertir.
 
     Returns:
     float: grados Fahrenheit.
     """
-    return (grados_celsius * 1.8) + 32
+
+    fahrenheit_degrees = celsius_degrees * 9 / 5 + 32
+    return round(fahrenheit_degrees, 2)
+
+
+def fahrenheit_to_celsius(fahrenheit_degrees):
+    """
+    Convierte grados Celsius a Fahrenheit.
+
+    Args:
+    fahrenheit_degrees (float): grados Celsius a convertir.
+
+    Returns:
+    float: grados Fahrenheit.
+    """
+    celsius_degrees = (fahrenheit_degrees - 32) * 5 / 9
+
+    return round(celsius_degrees, 2)
 
 
 def calcular_factorial(numero):
@@ -113,3 +130,7 @@ def es_palindroma(cadena):
     cadena = cadena.lower().strip()
     # Invertimos la cadena y comparamos con la original
     return cadena == cadena[::-1]
+
+
+print(fahrenheit_to_celsius(212))
+print(celsius_to_fahrenheit(100))
