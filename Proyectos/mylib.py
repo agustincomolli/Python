@@ -1,6 +1,8 @@
 #!/usr/bin/env/ python3
 
 import os
+import time
+
 
 # Diccionario que contiene los códigos de colores ANSI y sus nombres
 # correspondientes.
@@ -189,3 +191,27 @@ def confirm(message: str) -> bool:
             return True
         elif response == "n":
             return False
+
+
+def typewriter_effect(text):
+    """
+    Esta función implementa el efecto de tipeo. Imprime los caracteres de la cadena de texto uno por uno
+    en un intervalo de tiempo determinado para simular el efecto de que se está escribiendo en tiempo real.
+
+    Argumentos:
+    text : str
+        La cadena de texto que se quiere imprimir con efecto de tipeo.
+
+    Ejemplo de uso:
+    >>> typewriter_effect('Hola, mundo!')
+    Hola, mundo!
+    """
+
+    # Itera a través de cada carácter en la cadena de texto
+    for char in text:
+        # Imprime el carácter sin un salto de línea al final, y hace flush del flujo de salida inmediatamente
+        print(char, end='', flush=True)
+        # Espera un breve intervalo de tiempo antes de imprimir el siguiente carácter
+        time.sleep(0.05)
+    # Imprime un salto de línea al final para separar esta salida de la próxima en la consola
+    print("\n")
