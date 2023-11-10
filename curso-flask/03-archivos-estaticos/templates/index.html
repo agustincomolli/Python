@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{data.title}}</title>
+  <!-- 
+    Este es un enlace que importa el archivo CSS a tu documento HTML. 
+    url_for('static', filename='css/styles.css') es una función de Flask 
+    que genera una URL a los recursos estáticos en la carpeta "static". 
+    En este caso, se está generando una URL al archivo "styles.css" que se encuentra 
+    en la carpeta "css" dentro de la carpeta "static". 
+  -->
+  <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+</head>
+<body>
+  <h1>{{data.h1}}</h1>
+  <p>Este párrafo tiene un tamaño de 40px y subrayado ondulado.</p>
+
+  <!-- 
+    Similar al enlace anterior, este fragmento de código importa un archivo JavaScript a tu documento HTML.
+    Este archivo JavaScript ofrece funcionalidades adicionales a tu página web. 
+    url_for('static', filename='js/index.js') genera una URL al archivo "index.js" 
+    que se encuentra en la carpeta "js" dentro del directorio "static". 
+  -->
+  <script src="{{url_for('static', filename='js/index.js')}}"></script>
+</body>
+</html>
