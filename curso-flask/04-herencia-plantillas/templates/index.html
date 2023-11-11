@@ -1,0 +1,18 @@
+<!-- Esta plantilla está heredando de 'base.html'. Todos los bloques definidos 
+     en la plantilla base pueden ser reescritos aquí 
+-->
+{% extends './base.html' %}
+
+<!-- Comienza el bloque 'content'. En este caso, estamos reescribiendo el 
+     bloque 'content' de la plantilla base 
+-->
+{% block content %}
+<!-- Agrega un encabezado al bloque 'content' -->
+<h2>Reutilizando plantillas</h2>
+<!-- Agrega un párrafo al bloque 'content' -->
+<p>Esta página tiene el código principal del archivo base.html 🥳</p>
+
+<!-- Finaliza el bloque 'content'. Todo lo que esté dentro de este bloque 
+     reemplazará el correspondiente bloque en la plantilla base 
+-->
+{% endblock%}

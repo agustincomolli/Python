@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{data.title}}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <nav class="menu-bar">
+      <ul class="menu-list">
+        <li class="menu-item">
+          <!-- Enlace a la vista index, usando url_for() de Flask para generar la URL -->
+          <a class="menu-link" href="{{ url_for('index') }}">Inicio</a>
+        </li>
+        <li class="menu-item">
+          <!-- Enlace a la vista contact, también con url_for() -->
+          <a class="menu-link" href="{{ url_for('contact') }}">Contacto</a>
+        </li>
+      </ul>
+    </nav>
+    <h1>{{data.h1}}</h1>
+  </header>
+
+  <!-- Inicia un bloque con el nombre 'content'. Este bloque puede ser sobreescrito por plantillas hijas -->
+  {% block content %}
+  <!-- El bloque 'content' suele estar vacío en las plantillas principales, y sirve como una indicación 
+       de donde las plantillas que heredan de esta pueden insertar su propio contenido.  
+       Todo el contenido que las plantillas hijas colocan en un bloque 'content' reemplazará este bloque 
+       en la plantilla padre 
+  -->
+
+  <!-- Finaliza un bloque. No coloca ningún contenido, simplemente indica el final del bloque 'content' -->
+  {% endblock %}
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+</body>
+</html>
