@@ -20,8 +20,12 @@ def index():
         "h1": "Bienvenido al mundo Flask"
     }
 
+    name = "Agustín"
+    age = 46
+    skills = ["HTML", "CSS", "JavaScript", "Python"]
+
     # Devuelve la plantilla de Flask con los datos.
-    return render_template("index.html", data=data)
+    return render_template("index.html", data=data, name=name, age=age, skills=skills)
 
 
 if __name__ == "__main__":

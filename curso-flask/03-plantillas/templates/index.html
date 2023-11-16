@@ -7,5 +7,17 @@
 </head>
 <body>
   <h1>{{ data.h1 }}</h1>
+  <p>Hola {{ name }}, tienes {{ age }} años.</p>
+  <!-- Instrucción condicional en Flask -->
+  {% if age >= 18 %}
+  <p>¡Sos mayor de edad!</p>
+  {% endif %}
+  <h2>Habilidades en programación:</h2>
+  <ul>
+    <!-- Ciclo de repetición for en Flask -->
+    {% for skill in skills %}
+    <li>{{ skill }}</li>
+    {% endfor %}
+  </ul>
 </body>
 </html>
