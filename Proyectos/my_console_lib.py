@@ -29,16 +29,16 @@ class Align:
     RIGHT = "r"
 
 
-def highlight_text(text: str, color_code: str = "", style_code: str = "") -> str:
+def highlight_text(text: str, color: Colors = "", style: TextStyles = "") -> str:
     """
     Devuelve el texto especificado resaltado con el color y estilo ANSI indicados.
 
     Args:
         text (str): El texto que se desea resaltar.
-        color_code (str, opcional): El código de color ANSI que se aplicará al texto.
+        color (Color, opcional): El código de color ANSI que se aplicará al texto.
                                     Puede ser uno de los códigos definidos en la clase
                                     Colors. (Por defecto es una cadena vacía).
-        style_code (str, opcional): El estilo ANSI que se aplicará al texto.
+        style (TextStyles, opcional): El estilo ANSI que se aplicará al texto.
                                     Puede ser uno de los estilos definidos en la clase
                                     TextStyles, como BOLD, ITALIC o UNDERLINE. 
                                     (Por defecto es una cadena vacía).
@@ -46,10 +46,25 @@ def highlight_text(text: str, color_code: str = "", style_code: str = "") -> str
     Returns:
         str: El texto especificado resaltado con el color y estilo indicados.    
     """
-    return f"{color_code}{style_code}{text}{Colors.DEFAULT}"
+    return f"{color}{style}{text}{Colors.DEFAULT}{TextStyles.RESET}"
 
 
-def align_text(text: str, align: str = Align.LEFT, width: int = None)->str:
+def print_title(text: str, color: Colors = "", underline_char: str = "*") -> None:
+    """
+    Imprime un título con una línea subrayada.
+
+    Args:
+        text (str): El texto del título.
+        color (Colors): Es el código del color
+        underline_char (str): El carácter utilizado para subrayar el título.
+    """
+    title = f"{highlight_text(text, color)}"
+    underline = f"\n{highlight_text(underline_char, color) * (len(text) + 1)}"
+
+    print(title, underline)
+
+
+def align_text(text: str, align: str = Align.LEFT, width: int = None) -> str:
     """
     Devuelve el texto especificado alineado según la opción indicada.
 
@@ -63,7 +78,7 @@ def align_text(text: str, align: str = Align.LEFT, width: int = None)->str:
 
     Returns:
         str: El texto especificado alineado según la opción y ancho indicados.
-    
+
     """
     if width is None or width <= 0:
         width = get_terminal_size()[0]
@@ -75,36 +90,47 @@ def align_text(text: str, align: str = Align.LEFT, width: int = None)->str:
         return text.ljust(width)
 
 
-def input_color(message: str, color_input: str = "") -> str:
+def input_color(message: str, color_message: Colors = "", color_input: Colors = "") -> str:
     """
-    Muestra un mensaje al usuario con un mensaje coloreado y acepta la entrada 
-    del usuario con una solicitud coloreada.
+    Solicita un input al usuario mostrando el mensaje en un color y la respuesta en otro color.
 
     Args:
-        message (str):     El mensaje a mostrar al usuario.
-        color_input (str): El nombre del color a usar para la solicitud
-                           de entrada (por ejemplo, "red", "green", etc.)
+        message (str): El mensaje a mostrar al usuario.
+        color_message: El color en el que se mostrará el mensaje.
+        color_input: El color en el que se mostrará la respuesta del usuario.
 
-    Returns:    La entrada del usuario.
-
+    Returns: 
+        str: La respuesta del usuario.
     """
-    value = input(highlight_text(message, color_input))
-    print(Colors.DEFAULT, end="")  # Reset the color to the default
 
-    return value
+    # Coloreamos el mensaje.
+    message_colored = f"{color_message}{message}{color_input}"
+
+    # Solicitamos el input al usuario.
+    user_input = input(message_colored)
+    print(Colors.DEFAULT, end="")
+
+    # Devolvemos la respuesta del usuario con el color por defecto.
+    return f"{user_input}"
 
 
 def clear_screen():
     """
-    Limpia la pantalla de acuerdo al sistema operativo.
+    Esta función borra el contenido actual en la consola/terminal.
 
+    Este método funciona en diferentes sistemas operativos (Windows y Unix/Linux/MacOS), 
+    y utiliza comandos del sistema específicos para cada uno de ellos para borrar la pantalla.
+
+    Ejemplo de uso:
+    >>> clear_screen()
+    # Borra el contenido de la consola
     """
 
-    # posix = Linux or MAC
-    if os.name == "posix":
-        os.system("clear")
-    else:
-        os.system("cls")
+    # `os.name` es `'nt'` si el sistema operativo es Windows
+    # Entonces, si estamos en Windows, usamos el comando `'cls'` para borrar la pantalla
+    # De lo contrario, suponemos que estamos en un sistema tipo Unix (Linux/MacOS),
+    # por lo que usamos el comando `'clear'` para borrar la pantalla
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def get_terminal_size() -> tuple:
@@ -128,17 +154,18 @@ def press_enter_to_continue():
     continuar.
 
     """
-    input("Presione " + highlight_text("ENTER", Colors.YELLOW) + " para continuar...")
+    message = f"Presione {highlight_text("ENTER",Colors.YELLOW)} para continuar..."
+    input(message)
 
 
-def choose_option(title: str, options: list, color_input: str = "") -> int:
+def choose_option(title: str, options: list, color_input: Colors = Colors.DEFAULT) -> int:
     """
     Muestra un menú con las opciones especificadas y solicita al 
                  usuario que elija una opción.
 
     Args:
         title (str):    El título del menú
-        options (str):  Una lista de opciones a mostrar en el menú.
+        options (list):  Una lista de opciones a mostrar en el menú.
 
     Returns:    La opción seleccionada por el usuario.
 
@@ -216,3 +243,47 @@ def confirm(message: str) -> bool:
             return True
         elif response == "n":
             return False
+
+
+def print_table(headers, data, borders=False):
+    """
+    Imprime datos en formato de tabla.
+
+    Args:
+        headers (list): Lista de encabezados de la tabla.
+        data (list): Lista de listas con los datos de la tabla.
+        borders (bool, opcional): True si se deben agregar bordes a la tabla, 
+                                  False en caso contrario.
+                                  Por defecto es True.
+    """
+    if not headers or not data:
+        print("No hay datos para imprimir.")
+        return
+
+    max_lengths = [len(str(header)) for header in headers]
+
+    for row in data:
+        for i, value in enumerate(row):
+            max_lengths[i] = max(max_lengths[i], len(str(value)))
+
+    if borders:
+        horizontal_line = "+-" + \
+            "-".join("-" * length + "-+" for length in max_lengths)[:-1]
+        print(horizontal_line)
+
+    header_line = "| " + \
+        " | ".join(f"{header:<{max_lengths[i]}}" for i,
+                   header in enumerate(headers)) + " |"
+    print(header_line)
+
+    if borders:
+        print(horizontal_line)
+
+    for row in data:
+        data_line = "| " + \
+            " | ".join(
+                f"{value:<{max_lengths[i]}}" for i, value in enumerate(row)) + " |"
+        print(data_line)
+
+    if borders:
+        print(horizontal_line)
