@@ -1,0 +1,16 @@
+{% extends "./base.html" %}
+
+{% block content %}
+  <h2>Usando el ciclo for de Flask</h2>
+  <!-- Inicia una estructura condicional para verificar si la lista de lenguajes tiene elementos. -->
+  {% if data.languages|length > 0 %}
+    <ul>
+      <!-- Inicia un bucle "for" para recorrer la lista de lenguajes en "data.languages". -->
+      {% for language in data.languages %}
+        <li>{{ language }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+  <p>No hay lenguajes de programación para mostrar.</p>
+  {% endif %}
+{% endblock %}
