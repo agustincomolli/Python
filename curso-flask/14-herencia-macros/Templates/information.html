@@ -1,0 +1,67 @@
+<!-- 
+    Traer el código de base.html
+    “base.html” es un archivo de plantilla que se utiliza como esqueleto base 
+    para otras páginas, proporcionando estilos y bloques estándar que se 
+    pueden rellenar con contenido específico en las plantillas derivadas.
+  -->
+{% extends "base.html" %}
+
+{# 
+  Esta línea importa el archivo "macros.html". En un motor de plantillas Jinja, 
+  los macros son similares a las funciones en Python. Por lo tanto, puedes 
+  definir bloques reutilizables de código en "macros.html", y luego importar 
+  y usar estos bloques en otras plantillas. Aquí, "macros.html" es importado 
+  bajo el nombre de "macros", lo que significa que puedes acceder a los macros 
+  definidos en "macros.html" con "macros.nombre_del_macro".
+#} 
+{% import "macros.html" as macros %}
+
+{# 
+  Esta etiqueta 'block' indica el inicio de un bloque llamado 'title' que es 
+  redefinido en esta plantilla. Cualquier contenido definido en este bloque 
+  en la plantilla base será sustituido por el contenido dentro de este bloque. 
+#}
+{% block title %}
+
+{# 
+  La función 'super()' se utiliza para insertar el contenido del bloque padre 
+  (si existe). Esto es útil cuando quieres agregar a, en lugar de reemplazar, 
+  el contenido del bloque padre. En este caso, se insertará el contenido 
+  original del bloque 'title' (si existe) seguido por 'Herencia y Macros'. 
+#}
+  {{super()}}
+
+  {# 
+    Este es el nuevo contenido que se añadirá al bloque 'title'. En un contexto 
+    HTML, a menudo se utiliza para establecer el título de la página. 
+  #}
+  Herencia y Macros
+
+{# 
+  Esta etiqueta 'endblock' indica el final del bloque 'title'. Todo el 
+  contenido entre 'block title' y 'endblock' será considerado parte del bloque 
+  'title' y sustituirá al bloque 'title' en la plantilla base (a menos que se 
+  utilice 'super()', que añadirá a, en lugar de reemplazar, el contenido). 
+#}
+{% endblock %}
+
+<!-- Reemplazar el bloque content del archivo base.html -->
+{% block content %}
+  <h2>Herencia de plantillas en Flask</h2>
+
+  <!-- Si hay una cookie creada... -->
+  {% if user_ip %}
+  <p>Tu dirección IP es <strong>{{user_ip}}</strong></p>
+  {% else %}
+  <!-- Mostrar un link para crear la cookie con los datos de la IP del usuario -->
+  <a href="{{ url_for('/') }}">Crear cookie 🍪</a>
+  {% endif %}
+
+  <p>Para aprender a utilizar Flask necesitas tener las siguientes habilidades:</p>
+  <ul>
+    <!-- Recorrer la lista de habilidades requeridas. -->
+    {% for skill in skills %}
+      {{ macros.render_skills(skill) }}
+    {% endfor %}
+  </ul>
+{% endblock %}

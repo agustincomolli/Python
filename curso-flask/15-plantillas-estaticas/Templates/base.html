@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Curso de Flask | {% endblock %}</title>
+</head>
+<body>
+  <header>
+    {# 
+      La directiva 'include' se utiliza para incluir el contenido de otro archivo 
+      de plantilla (en este caso, "nav-bar.html") al lugar donde se encuentra 
+      esta línea en la plantilla actual. Esto es útil si tienes trozos de HTML 
+      que se utilizan en varias plantillas y quieres evitar la duplicación de 
+      código, puedes escribir el HTML común en un archivo (como "nav-bar.html") 
+      y luego simplemente incluir ese archivo donde sea necesario. 
+    #}
+    {% include "nav-bar.html" %}
+  </header>
+
+  <h1>Curso de Flask</h1>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

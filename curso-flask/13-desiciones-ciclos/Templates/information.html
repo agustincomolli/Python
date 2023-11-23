@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plantillas en Flask</title>
+</head>
+<body>
+  <h1>Curso de Flask</h1>
+  <h2>Plantillas en Flask</h2>
+  
+  <!-- Si hay una cookie creada... -->
+  {% if user_ip %}
+    <p>Tu dirección IP es <strong>{{user_ip}}</strong></p>
+  {% else %}
+    <!-- Mostrar un link para crear la cookie con los datos de la IP del usuario -->
+    <a href="{{ url_for('/') }}">Crear cookie 🍪</a>
+  {% endif %}
+
+  <p>Para aprender a utilizar Flask necesitas tener las siguientes habilidades:</p>
+  <ul>
+    <!-- Recorrer la lista de habilidades requeridas. -->
+    {% for skill in skills %}
+      <li>{{ skill }}</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
