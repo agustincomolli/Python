@@ -1,7 +1,10 @@
 from flask import Flask, request, make_response, redirect, render_template
+from flask_bootstrap import Bootstrap
 
 # Crear una instancia de la aplicación Flask
 app = Flask(__name__)
+
+bootstrap = Bootstrap(app)
 
 skills = ["HTML", "CSS", "JavaScript", "Python"]
 

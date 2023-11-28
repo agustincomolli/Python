@@ -1,0 +1,31 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+  {{ super() }}
+  <!-- Inicio del título de la página. Si es necesario, esta sección puede ser reemplazada en plantillas que hereden de esta. -->
+  <title>{% block title %}Curso de Flask {% endblock %}</title>
+
+  <!-- Enlace a la hoja de estilo CSS en la carpeta "static". Flask automáticamente genera la URL correcta con la función "url_for()". -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block body %}
+
+  {% block navbar %}
+    {#
+    La directiva 'include' se utiliza para incluir el contenido de otro archivo
+    de plantilla (en este caso, "nav-bar.html") al lugar donde se encuentra
+    esta línea en la plantilla actual. Esto es útil si tienes trozos de HTML
+    que se utilizan en varias plantillas y quieres evitar la duplicación de
+    código, puedes escribir el HTML común en un archivo (como "nav-bar.html")
+    y luego simplemente incluir ese archivo donde sea necesario.
+    #}
+    {% include "nav-bar.html" %}
+    <h1>Curso de Flask</h1>
+    {% block content %}
+    {% endblock %}
+  {% endblock %}
+
+{% endblock %}
+
+
