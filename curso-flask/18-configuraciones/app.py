@@ -1,0 +1,82 @@
+from flask import Flask, request, make_response, redirect, render_template, session
+from flask_bootstrap import Bootstrap
+
+# Crear una instancia de la aplicación Flask
+app = Flask(__name__)
+
+bootstrap = Bootstrap(app)
+
+# Configurar una clave secreta que se utilizará para gestionar las sesiones 
+# y otros aspectos de seguridad.
+app.config["SECRET_KEY"] = "BIG WOOP"
+
+skills = ["HTML", "CSS", "JavaScript", "Python"]
+
+
+@app.errorhandler(404)
+def not_found_endpoint(error):
+    """
+    Renderiza la plantilla "error-404.html" con el error proporcionado.
+
+    Args:
+        error: El error que ocurrió.
+
+    Returns:
+        La plantilla renderizada con el error.
+
+    """
+    return render_template("error-404.html", error=error)
+
+
+@app.route("/show-ip")
+# Definir una ruta para mostrar la dirección IP almacenada en las cookies ("/show-ip")
+def show_ip():
+    """ 
+    Esta función es utilizada para extraer la dirección de IP del usuario 
+    guardada en las cookies y pasarla a una plantilla de renderizado. 
+    """
+
+    # Recupera la dirección IP del usuario almacenada previamente en la sesión
+    user_ip = session.get("user_ip")
+
+    context = {
+        # Aquí estamos creando un diccionario para enviar varias variables a la plantilla.
+        # La dirección IP del usuario recogida de las cookies.
+        "user_ip": user_ip,
+        # "skills" es una lista que contiene habilidades del usuario.
+        "skills": skills
+    }
+
+    # Renderizamos la plantilla "information.html", pasamos el diccionario "context" a la plantilla.
+    # Las llaves dobles (**) antes de "context" indican que estamos desempaquetando el diccionario "context".
+    # Es decir, si context = {"user_ip": user_ip, "skills": skills}, entonces esta llamada es equivalente a
+    # return render_template("information.html", user_ip=user_ip, skills=skills).
+    return render_template("information.html", **context)
+
+
+@app.route("/")
+# Definir una ruta para la página principal ("/")
+def index():
+    """
+    Función para manejar solicitudes a la ruta principal ("/").
+
+    Almacena la dirección IP del usuario en las cookies y redirige a la ruta "/show-ip".
+    """
+    # Obtener la dirección IP del usuario que realiza la solicitud
+    user_ip = request.remote_addr
+
+    # Crear una respuesta de redirección a la ruta "/show-ip"
+    response = make_response(redirect("/show-ip"))
+
+    # Guarda la dirección IP del usuario en la sesión para rastrear su actividad durante su visita
+    session["user_ip"] = user_ip
+
+    # Retornar la respuesta de redirección
+    return response
+
+
+# Verificar si este script es el script principal que se está ejecutando
+if __name__ == "__main__":
+    # Iniciar la aplicación Flask en el host "0.0.0.0" para que sea accesible desde cualquier dirección IP
+    # Habilitar el modo de depuración para facilitar la identificación y corrección de errores
+    app.run(host="0.0.0.0", debug=True)

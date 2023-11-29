@@ -1,0 +1,19 @@
+{# 
+  Esta etiqueta 'macro' inicia la definición de un nuevo macro llamado 
+  'render_skills'. Los macros son similares a las funciones en Python – toman 
+  argumentos (en este caso, 'skill') y devuelven algún resultado. 
+#}
+{% macro render_skills(skill) %}
+
+  {# 
+    La variable 'skill' se renderiza dentro de elementos de lista HTML (<li>). 
+      Cada vez que este macro se llame, generará un nuevo elemento de lista 
+      con el contenido igual al valor de 'skill'. 
+  #}
+  <li>{{ skill }}</li>
+
+{# 
+  Esta etiqueta 'endmacro' indica el final del macro. Toda la lógica definida 
+  entre 'macro' y 'endmacro' es lo que se ejecuta cada vez que se llama al macro. 
+#}
+{% endmacro %}
