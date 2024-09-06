@@ -1,10 +1,40 @@
+"""
+Módulo `my_console_lib`
+================
+
+Este módulo contiene funciones y constantes para interactuar con la consola de
+comandos de manera más amigable.
+
+Contenido
+---------
+
+* Constantes para los códigos de colores ANSI.
+* Funciones para mostrar texto en la consola con colores y estilo.
+* Funciones para formatear números con separadores de miles y decimales.
+* Funciones para obtener la fecha y hora actuales con diferentes formatos.
+* Funciones para leer la entrada del usuario y mostrar mensajes de error.
+* Funciones para leer y escribir archivos.
+
+"""
 #!/usr/bin/env/ python3
 
 import os
+import locale
+
+# Utiliza la configuración local del sistema
+locale.setlocale(locale.LC_ALL, '')
 
 
 class TextStyles:
-    # Códigos ANSI para dar estilos al texto.
+    """
+    Clase que contiene los códigos ANSI para dar estilos al texto.
+
+    Atributos:
+        BOLD (str): Código ANSI para texto en negrita.
+        ITALIC (str): Código ANSI para texto en cursiva.
+        UNDERLINE (str): Código ANSI para texto subrayado.
+        RESET (str): Código ANSI para resetear el estilo del texto.
+    """
     BOLD = "\033[1m"
     ITALIC = "\033[3m"
     UNDERLINE = "\033[4m"
@@ -12,7 +42,19 @@ class TextStyles:
 
 
 class Colors:
-    # Códigos ANSI para colorear el texto.
+    """
+    Clase que contiene los códigos ANSI para colorear el texto en la consola.
+
+    Atributos:
+        RED (str): Código ANSI para texto en rojo.
+        GREEN (str): Código ANSI para texto en verde.
+        YELLOW (str): Código ANSI para texto en amarillo.
+        BLUE (str): Código ANSI para texto en azul.
+        MAGENTA (str): Código ANSI para texto en magenta.
+        CYAN (str): Código ANSI para texto en cian.
+        WHITE (str): Código ANSI para texto en blanco.
+        DEFAULT (str): Código ANSI para resetear el color del texto.
+    """
     RED = "\033[91m"
     GREEN = "\033[92m"
     YELLOW = "\033[93m"
@@ -24,6 +66,14 @@ class Colors:
 
 
 class Align:
+    """
+    Clase que contiene constantes para alinear texto en la consola.
+
+    Atributos:
+        LEFT (str): Alinea el texto a la izquierda.
+        CENTER (str): Alinea el texto al centro.
+        RIGHT (str): Alinea el texto a la derecha.
+    """
     LEFT = "l"
     CENTER = "c"
     RIGHT = "r"
@@ -154,7 +204,8 @@ def press_enter_to_continue():
     continuar.
 
     """
-    message = f"Presione {highlight_text("ENTER",Colors.YELLOW)} para continuar..."
+    message = f"Presione {highlight_text(
+        "ENTER", Colors.YELLOW)} para continuar..."
     input(message)
 
 
@@ -287,3 +338,44 @@ def print_table(headers, data, borders=False):
 
     if borders:
         print(horizontal_line)
+
+
+def f_int(number: int) -> str:
+    """
+    Formatea un número entero según las convenciones locales del usuario.
+
+    Args:
+        number (int): El número a formatear.
+
+    Returns:
+        str: El número formateado según las convenciones locales.
+    """
+    return locale.format_string("%d", number, grouping=True)
+
+
+def f_float(number: float) -> str:
+    """
+    Formatea un número decimal según las convenciones locales del usuario.
+
+    Args:
+        number (float): El número a formatear.
+
+    Returns:
+        str: El número formateado según las convenciones locales.
+    """
+    return locale.format_string("%.2f", number, grouping=True)
+
+
+def f_currency(number: float) -> str:
+    """
+    Formatea un número como una cantidad de dinero según las convenciones locales
+    del usuario.
+
+    Args:
+        number (float): El número a formatear.
+
+    Returns:
+        str: El número formateado como una cantidad de dinero según las convenciones
+             locales.
+    """
+    return locale.currency(number, grouping=True)

@@ -1,7 +1,29 @@
+"""
+Módulo `mylib`
+================
+
+Este módulo contiene funciones y constantes para ser utilizadas en los
+proyectos de programación de Python.
+
+Contenido
+---------
+
+* Constantes para los colores en la consola.
+* Funciones para mostrar texto en la consola con colores y estilo.
+* Funciones para formatear números con separadores de miles y decimales.
+* Funciones para obtener la fecha y hora actuales con diferentes formatos.
+* Funciones para leer la entrada del usuario y mostrar mensajes de error.
+* Funciones para leer y escribir archivos.
+
+"""
 #!/usr/bin/env/ python3
 
 import os
 import time
+import locale
+
+# Utiliza la configuración local del sistema
+locale.setlocale(locale.LC_ALL, '')
 
 
 # Diccionario que contiene los códigos de colores ANSI y sus nombres
@@ -195,8 +217,9 @@ def confirm(message: str) -> bool:
 
 def typewriter_effect(text):
     """
-    Esta función implementa el efecto de tipeo. Imprime los caracteres de la cadena de texto uno por uno
-    en un intervalo de tiempo determinado para simular el efecto de que se está escribiendo en tiempo real.
+    Esta función implementa el efecto de tipeo. Imprime los caracteres de la cadena 
+    de texto uno por uno en un intervalo de tiempo determinado para simular el efecto 
+    de que se está escribiendo en tiempo real.
 
     Argumentos:
     text : str
@@ -209,9 +232,51 @@ def typewriter_effect(text):
 
     # Itera a través de cada carácter en la cadena de texto
     for char in text:
-        # Imprime el carácter sin un salto de línea al final, y hace flush del flujo de salida inmediatamente
+        # Imprime el carácter sin un salto de línea al final, y hace flush del 
+        # flujo de salida inmediatamente
         print(char, end='', flush=True)
         # Espera un breve intervalo de tiempo antes de imprimir el siguiente carácter
         time.sleep(0.05)
     # Imprime un salto de línea al final para separar esta salida de la próxima en la consola
     print("\n")
+
+
+def f_int(number: int) -> str:
+    """
+    Formatea un número entero según las convenciones locales del usuario.
+    
+    Args:
+        number (int): El número a formatear.
+    
+    Returns:
+        str: El número formateado según las convenciones locales.
+    """
+    return locale.format_string("%d", number, grouping=True)
+
+
+def f_float(number: float) -> str:
+    """
+    Formatea un número decimal según las convenciones locales del usuario.
+
+    Args:
+        number (float): El número a formatear.
+
+    Returns:
+        str: El número formateado según las convenciones locales.
+    """
+    return locale.format_string("%.2f", number, grouping=True)
+
+
+def f_currency(number: float) -> str:
+    """
+    Formatea un número como una cantidad de dinero según las convenciones locales
+    del usuario.
+
+    Args:
+        number (float): El número a formatear.
+
+    Returns:
+        str: El número formateado como una cantidad de dinero según las convenciones
+             locales.
+    """
+    return locale.currency(number, grouping=True)
