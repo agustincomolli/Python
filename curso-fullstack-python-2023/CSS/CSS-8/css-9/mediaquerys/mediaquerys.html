@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        html {
+            font-size: 62.5%; /* 1rem = 10px */
+        }
+
+        /*Media querys*/
+
+        @media screen and (max-width: 600px) {
+            body{
+                background-color: red;        
+            }
+            h1{
+                font-size: 2rem;
+            }
+        }
+
+
+        @media screen and (min-width: 600px) and (max-width: 900px){
+            body{
+                background-color: green;
+            }
+            h1{
+                font-size: 4rem;
+            }
+        }
+
+        @media screen and (min-width: 900px) and (orientation: landscape){
+            body{
+                background-color: blue;
+            }
+            h1{
+                font-size: 6rem;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h1>Mediaquerys</h1>
+</body>
+
+</html>

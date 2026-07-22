@@ -1,0 +1,47 @@
+html{
+    font-size: 62.5%;
+}
+
+h1 {
+
+    color: aqua;
+}
+
+a {
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+a:hover { /* hover sirve para cuando el mouse pasa por encima del elemento */
+    color: red;
+    font-size: 3rem;
+}
+
+a:active { /* active sirve para cuando el elemento esta activo */
+    color: blue;
+}
+
+a:visited { /* visited sirve para cuando el elemento ya fue visitado */
+    color: green;
+}
+
+a:link { /* link sirve para cuando el elemento no ha sido visitado */
+    color: black;
+}
+
+li:nth-child(2) { /* nth-child sirve para seleccionar el elemento hijo que se encuentra en la posicion que se le indica */
+  background-color: orange;
+}
+
+p::first-letter { /* first-letter sirve para seleccionar la primera letra de un elemento */
+    color: red;
+}
+
+p::first-line { /* first-line sirve para seleccionar la primera linea de un elemento */
+    color: blue;
+}
+
+p::selection { /* selection sirve para seleccionar el texto que se esta seleccionando */
+    color: white;
+    background-color: black;
+}

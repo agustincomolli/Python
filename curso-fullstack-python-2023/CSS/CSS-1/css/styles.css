@@ -1,0 +1,33 @@
+h1 {
+    color: aqua;
+}
+
+span {
+    color: red;
+}
+
+#esteesmiid {
+    color: green;
+}
+
+.estaesmiclase{
+    color: blue;
+    background-color: burlywood;
+    font-size: 100px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.mi-cajita{
+    background-color: aquamarine;
+    width: 100px;
+    height: 100px;
+    border-style: solid;
+    border-color: red;
+    border-width: 1px;
+    border-radius: 20px;
+}
+
+ul li.item{
+    color: red;
+    background-color: black;
+}

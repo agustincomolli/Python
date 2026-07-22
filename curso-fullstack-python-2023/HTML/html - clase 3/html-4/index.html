@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Primer Formulario</title>
+</head>
+<body>
+    <header>
+        <h1>Mi Formulario Registro</h1>
+    </header>
+
+    <main>
+        <article>
+            <form action="https://formspree.io/f/mwkjqzpp" method="POST">
+
+                <!-- Esto un comentario de mi codigo
+                    type="text" es para que el usuario pueda escribir texto
+                 -->
+                <label>Nombre:
+                    <input type="text" name="nombre" id="nombre" placeholder="ingrese un nombre" required>
+                </label>
+
+                <br/>
+
+                <label>Apellido:
+                    <input type="text" name="apellido" id="apellido" placeholder="ingrese un apellido">
+                </label>
+
+                <br/>
+
+                <label>Edad:
+                    <input type="number" name="edad" id="edad" min="0" max="99">
+                </label>
+
+                <!--
+                    type="password" es para que el usuario pueda escribir una contraseña
+                -->
+                <label>Contraseña:
+                    <input type="password" name="password" id="password" placeholder="ingrese una password">
+                </label>
+
+                <br/>
+                <!-- Esto un comentario de mi codigo
+                    type="email" es para que el usuario pueda un email 
+              
+                <label>Email:
+                    <input type="email" name="email" id="email" placeholder="ingrese un mail">
+                </label>
+
+                <br/>
+
+                <label>Seleccione su lenguaje de programacion favorito:
+                    <select name="lenguaje" multiple>
+                        <option value="javascript">JavaScript</option>
+                        <option value="php">PHP 7</option>
+                        <option value="python3" selected>Python 3</option>
+                    </select>
+                </label>
+
+                <label>Seleccione su lenguaje de programacion favorito:
+                    <select name="lenguaje">
+                        <option value="javascript">JavaScript</option>
+                        <option value="php">PHP 7</option>
+                        <option value="python3" selected>Python 3</option>
+                    </select>
+                </label>
+
+                <label>
+                    <input type="tel" name="telefono" id="telefono" placeholder="ingrese un telefono">
+                </label>
+   -->
+                <label>Intreses:
+                    <label for="interes1">Deportes</label>
+                    <input type="checkbox" name="interes1" value="deportes" checked="true" disabled="true">
+                    <label for="interes2">Musica</label>
+                    <input type="checkbox" name="interes2" value="musica">
+                    <label for="interes3">Cine</label>
+                    <input type="checkbox" name="interes3" value="cine">
+                </label>
+
+                <br/>
+                <br/>
+                <fieldset>
+                <legend>Personalia:</legend>
+
+                <label>Tipo de documento:
+                    <label for="documento1">DNI</label>
+                    <input type="radio" name="documento" value="DNI">
+                    <label for="documento2">CI</label>
+                    <input type="radio" name="documento" value="CI">
+                    <label for="documento2">Pasaporte</label>
+                    <input type="radio" name="documento" value="Pasaporte" checked="true">
+                </label>
+
+                <textarea name="mensaje" cols="10" rows="2"></textarea>
+                </fieldset>
+                <br/>
+                <br/>
+                <input type="reset" value="Borrar">
+                <input type="submit" value="Enviar mi formulario">
+            </form>
+
+        </article>
+    </main>
+
+
+    <footer>
+
+    </footer>
+</body>
+</html>

@@ -1,1 +1,0 @@
-Esto viene de STDIN: Ahora lo escribimos en STDOUT: hola
