@@ -43,8 +43,8 @@ print(
 "\tREPORTE DE ALMACENAMIENTO NAS\n"
 "========================================\n"
 f"Servidor Evaluado:\t{name_server}\n"
-f"Capacidad Total:\t{total_capacity} GB\n"
-f"Espacio Utilizado:\t{used_space} GB\n"
-f"Porcentaje Libre:\t{free_percentage}%\n"
+f"Capacidad Total:\t{total_capacity:.2f} GB\n"
+f"Espacio Utilizado:\t{used_space:.2f} GB\n"
+f"Porcentaje Libre:\t{free_percentage:.2f}%\n"
 "========================================"
 )

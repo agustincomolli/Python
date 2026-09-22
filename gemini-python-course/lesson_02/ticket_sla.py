@@ -30,8 +30,8 @@ print(
     "                      RESUMEN                       \n"
     "\n"
     f"    Ticket:\t{ticket_code}\n"
-    f"    Minutos estimados:\t{estimated_minutes}\n"
-    f"    Segundos estimados:\t{estimated_seconds}\n"
+    f"    Minutos estimados:\t{estimated_minutes:.0f}\n"
+    f"    Segundos estimados:\t{estimated_seconds:.0f}\n"
     "\n"
     "+--------------------------------------------------+\n"
       )
