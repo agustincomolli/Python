@@ -23,7 +23,7 @@ failed_attempts = int(input("Intentos fallidos de conexión: "))
 
 if (destination_port == 22 or destination_port == 3389) and failed_attempts >= 5:
     print("ALTA AMENAZA")
-elif failed_attempts >=10:
+elif failed_attempts >= 10:
     print("ALERTA MEDIA")
 else:
     print("TRAFICO NORMAL")
